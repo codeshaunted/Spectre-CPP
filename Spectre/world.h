@@ -17,9 +17,9 @@
 
 #include <memory>
 
-#include "objectmanager.h"
-
 namespace spectre {
+
+class ObjectManager;
 
 class World {
  public:

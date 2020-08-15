@@ -18,10 +18,16 @@
 #ifndef COMPONENT_H_
 #define COMPONENT_H_
 
+#include <memory>
+
 namespace spectre {
 
+class Command;
+
 class Component {
-	
+ public:
+  virtual bool ExecuteCommand(std::shared_ptr<Command> command) { return false; }
+ private:
 };
 
 } // namespace spectre

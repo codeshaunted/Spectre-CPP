@@ -18,14 +18,16 @@
 #ifndef OBJECT_H_
 #define OBJECT_H_
 
-#include <guiddef.h>
-
-#include <vector>
+#include <map>
 #include <memory>
 
 #include "component.h"
+#include "command.h"
 
 namespace spectre {
+
+class Command;
+class Component;
 
 class Object {
  public:
@@ -35,9 +37,14 @@ class Object {
   uint64_t GetID() { return id_; }
   void SetID(uint64_t id) { id_ = id; }
 
+  void AddComponent(Component component);
+
+  bool ExecuteCommand(std::shared_ptr<Command> command);
+  bool ExecuteCommandOnComponents(std::shared_ptr<Command> command);
+
  private:
   uint64_t id_;
-  std::vector<std::shared_ptr<Component>> components_;
+  std::map<uint16_t, std::shared_ptr<Component>> components_;
 };
 
 } // namespace spectre

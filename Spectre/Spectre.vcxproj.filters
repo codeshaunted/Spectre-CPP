@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\Components">
+      <UniqueIdentifier>{f764dcf1-b235-4b05-bc6b-94fe466e1115}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Components">
+      <UniqueIdentifier>{11af225b-1f8a-474d-87dd-de6b9b85bd3d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="component.cc">
@@ -27,6 +33,18 @@
     <ClCompile Include="objectmanager.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="subject.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="observer.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="command.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="physics_component.cc">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="component.h">
@@ -40,6 +58,21 @@
     </ClInclude>
     <ClInclude Include="world.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="subject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="observer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="command_id.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="physics_component.h">
+      <Filter>Header Files\Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

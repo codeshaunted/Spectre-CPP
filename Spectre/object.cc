@@ -17,15 +17,39 @@
 
 #include "object.h"
 
-#include <combaseapi.h>
+#include "component.h"
+#include "command.h"
 
 namespace spectre {
 
 Object::Object() {
-  id_ = NULL;
+  id_ = 0; // Object IDs start at 1, ensuring this default value will never occur in an ObjectManager
 }
 
 Object::~Object() {
+}
+
+void Object::AddComponent(Component component) {
+  components_.insert({ 0, std::make_shared<Component>(component) });
+}
+
+bool Object::ExecuteCommand(std::shared_ptr<Command> command) {
+  switch (command->command_id_) {
+    default: {
+      return ExecuteCommandOnComponents(command);
+    }
+  }
+}
+
+bool Object::ExecuteCommandOnComponents(std::shared_ptr<Command> command)
+{
+  bool command_handled = false;
+
+  for (auto component : components_) {
+    command_handled |= component.second->ExecuteCommand(command);
+  }
+
+  return command_handled;
 }
 
 } // namespace spectre

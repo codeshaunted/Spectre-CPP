@@ -1,4 +1,4 @@
-// objectmanager.cc
+// command.h
 // Copyright (C) 2020 Spectre Team
 //
 // This program is free software; you can redistribute it and/or
@@ -15,31 +15,32 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#include "objectmanager.h"
+#ifndef COMMAND_H_
+#define COMMAND_H_
 
-#include "object.h"
+#include <cstdint>
+
+#include "command_id.h"
 
 namespace spectre {
 
-ObjectManager::ObjectManager()
-{
-  next_id_ = 0;
-}
+class Object;
 
-void ObjectManager::AddObject(Object object) {
-  uint64_t id = GetNewID();
-  object.SetID(id);
-  objects_.insert({ id, std::make_shared<Object>(object) });
-}
+class Command {
+ public:
+  uint16_t command_id_; // If you're exceeding 65535 unique messages in a game, you're doing something wrong
+};
 
-void ObjectManager::RemoveObject(uint64_t id) {
-  objects_.erase(id);
-}
+class GetPosition : public Command {
+ public:
+  uint16_t command_id_ = CommandID::kGetPosition;
+};
 
-uint64_t ObjectManager::GetNewID()
-{
-  ++next_id_;
-  return next_id_;
-}
+class SetPosition : public Command {
+ public:
+  uint16_t command_id_ = CommandID::kSetPosition;
+};
 
 } // namespace spectre
+
+#endif // COMMAND_H_
