@@ -29,6 +29,7 @@ class Command;
 class PhysicsComponent : public Component {
  public:
   bool ExecuteCommand(std::shared_ptr<Command> command) override;
+  uint16_t component_id_ = ComponentID::kPhysics;
 };
 
 } // namespace spectre

@@ -74,5 +74,8 @@
     <ClInclude Include="physics_component.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
+    <ClInclude Include="component_id.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

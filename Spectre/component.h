@@ -20,6 +20,8 @@
 
 #include <memory>
 
+#include "component_id.h"
+
 namespace spectre {
 
 class Command;
@@ -27,7 +29,7 @@ class Command;
 class Component {
  public:
   virtual bool ExecuteCommand(std::shared_ptr<Command> command) { return false; }
- private:
+  uint16_t component_id_ = ComponentID::kNull;
 };
 
 } // namespace spectre

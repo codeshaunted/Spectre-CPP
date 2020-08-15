@@ -32,6 +32,7 @@
     <ClInclude Include="command.h" />
     <ClInclude Include="command_id.h" />
     <ClInclude Include="component.h" />
+    <ClInclude Include="component_id.h" />
     <ClInclude Include="object.h" />
     <ClInclude Include="objectmanager.h" />
     <ClInclude Include="observer.h" />

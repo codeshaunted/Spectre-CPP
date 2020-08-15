@@ -30,7 +30,7 @@ Object::~Object() {
 }
 
 void Object::AddComponent(Component component) {
-  components_.insert({ 0, std::make_shared<Component>(component) });
+  components_.insert({ component.component_id_, std::make_shared<Component>(component) });
 }
 
 bool Object::ExecuteCommand(std::shared_ptr<Command> command) {

@@ -1,4 +1,4 @@
-// command.h
+// component_id.h
 // Copyright (C) 2020 Spectre Team
 //
 // This program is free software; you can redistribute it and/or
@@ -15,32 +15,16 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#ifndef COMMAND_H_
-#define COMMAND_H_
-
-#include <cstdint>
-
-#include "command_id.h"
+#ifndef COMPONENT_ID_H_
+#define COMPONENT_ID_H_
 
 namespace spectre {
 
-class Object;
-
-class Command {
- public:
-  uint16_t command_id_ = CommandID::kNull; // If you're exceeding 65535 unique messages in a game, you're doing something wrong
-};
-
-class GetPosition : public Command {
- public:
-  uint16_t command_id_ = CommandID::kGetPosition;
-};
-
-class SetPosition : public Command {
- public:
-  uint16_t command_id_ = CommandID::kSetPosition;
+enum ComponentID : uint16_t {
+  kNull = 0,
+  kPhysics = 1,
 };
 
 } // namespace spectre
 
-#endif // COMMAND_H_
+#endif // COMPONENT_ID_H_
