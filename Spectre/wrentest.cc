@@ -2,6 +2,12 @@
 
 #include "wren.hpp"
 #include <iostream>
+#include <string>
+
+std::string getWrenScript(std::string scriptName) {
+    ifstream myfile;
+    myfile.open("Spectre/wren_src/" + scriptName);
+}
 
 void writeFn(WrenVM* vm, const char* text) {
     std::cout << text;
@@ -34,10 +40,10 @@ int main() {
         config.errorFn = &errorFn;
     WrenVM* vm = wrenNewVM(&config);
 
-    const char* module = "main";
-    const char* script = "System.print(\"I am running in a Vm!\"";
+    const std::string module = "main";
+    const std::string script = getWrenScript("HelloWorld");
     
-    WrenInterpretResult result = wrenInterpret(vm, module, script);
+    WrenInterpretResult result = wrenInterpret(vm, module.c_str(), script.c_str());
 
     switch (result) {
         case WREN_RESULT_COMPILE_ERROR:
