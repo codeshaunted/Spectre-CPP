@@ -22,7 +22,7 @@
 namespace spectre {
 
 Object::Object() {
-  CoCreateGuid(&id_); // assign GUID
+  id_ = NULL;
 }
 
 Object::~Object() {

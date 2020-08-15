@@ -32,8 +32,11 @@ class Object {
   Object();
   ~Object();
 
+  uint64_t GetID() { return id_; }
+  void SetID(uint64_t id) { id_ = id; }
+
  private:
-  GUID id_;
+  uint64_t id_;
   std::vector<std::shared_ptr<Component>> components_;
 };
 

@@ -28,6 +28,7 @@
     <ClInclude Include="component.h" />
     <ClInclude Include="object.h" />
     <ClInclude Include="objectmanager.h" />
+    <ClInclude Include="world.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

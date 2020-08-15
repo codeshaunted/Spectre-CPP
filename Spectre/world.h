@@ -1,4 +1,4 @@
-// objectmanager.cc
+// world.h
 // Copyright (C) 2020 Spectre Team
 //
 // This program is free software; you can redistribute it and/or
@@ -15,29 +15,27 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+#include <memory>
+
 #include "objectmanager.h"
 
 namespace spectre {
 
-ObjectManager::ObjectManager()
-{
-  next_id_ = 0;
-}
+class World {
+ public:
+  static World& Instance() {
+    static std::shared_ptr<World> instance = std::make_shared<World>();
+    return *instance;
+  }
 
-void ObjectManager::AddObject(Object object) {
-  uint64_t id = GetNewID();
-  object.SetID(id);
-  objects_.insert({ id, std::make_shared<Object>(object) });
-}
+  ObjectManager& GetObjectManager() {
+    if (object_manager_ == NULL) object_manager_ = std::make_shared<ObjectManager>();
+    return *object_manager_;
+  }
 
-void ObjectManager::RemoveObject(uint64_t id) {
-  objects_.erase(id);
-}
-
-uint64_t ObjectManager::GetNewID()
-{
-  ++next_id_;
-  return next_id_ - 1;
-}
+ private:
+  static World instance_;
+  std::shared_ptr<ObjectManager> object_manager_;
+};
 
 } // namespace spectre

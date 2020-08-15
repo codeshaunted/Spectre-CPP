@@ -15,10 +15,12 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-namespace spectre {
+#include "world.h"
+#include "object.h"
 
 int main() {
+  spectre::Object object = spectre::Object();
+  spectre::World::Instance().GetObjectManager().AddObject(object);
+  spectre::World::Instance().GetObjectManager().RemoveObject(object.GetID());
   return 0;
 }
-
-} // namespace spectre

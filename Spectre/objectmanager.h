@@ -18,11 +18,24 @@
 #ifndef OBJECTMANAGER_H_
 #define OBJECTMANAGER_H_
 
+#include <map>
+#include <memory>
+
+#include "object.h"
+
 namespace spectre {
 
 class ObjectManager {
  public:
+  ObjectManager();
+
+  void AddObject(Object object);
+  void RemoveObject(uint64_t id);
  private:
+  uint64_t next_id_;
+  std::map<uint64_t, std::shared_ptr<Object>> objects_;
+
+  uint64_t GetNewID();
 };
 
 } // namespace spectre
