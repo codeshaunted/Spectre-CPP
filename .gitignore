@@ -4,3 +4,4 @@ Debug/
 .vs/Spectre/v16/
 
 *.dblite
+*.o

@@ -1,4 +1,7 @@
-Object('Spectre/component.cc')
-Object('Spectre/object.cc')
-Object('Spectre/objectmanager.cc')
-Program('Spectre/main.cc')
+# src_files = Split("""main.cc
+                     # component.cc
+                     # object.cc
+                     # objectmanager.cc""")
+# Program('Spectre', src_files, parse_flags='-Iinclude -llibwren')
+
+Program('wrentest', 'Spectre/wrentest.cc', parse_flags='-Iwren/src/include -Lwren/lib -llibwren')

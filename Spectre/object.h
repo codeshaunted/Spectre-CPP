@@ -18,7 +18,7 @@
 #ifndef OBJECT_H_
 #define OBJECT_H_
 
-#include <guiddef.h>
+#include "guiddef.h"
 
 #include <vector>
 #include <memory>
