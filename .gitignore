@@ -11,3 +11,5 @@ Spectre/third_party/wren/src/include/!readme.txt
 
 *.dblite
 *.o
+
+Spectre/logs/
