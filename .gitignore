@@ -1,7 +1,11 @@
 
+
+# Visual Studio
 Debug/
 build/
 .vs/Spectre/v16/
+enc_temp_folder/
+*/Spectre.vcxproj.user
 
 #don't include third party files, but leave the dirs:
 Spectre/third_party/wren/lib/*
@@ -11,3 +15,9 @@ Spectre/third_party/wren/src/include/!readme.txt
 
 *.dblite
 *.o
+
+# CLion IDE
+.idea/
+
+# Linux
+cmake-build-debug/

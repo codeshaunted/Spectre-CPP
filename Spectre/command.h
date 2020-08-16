@@ -24,22 +24,22 @@
 
 namespace spectre {
 
-class Object;
+    class Object;
 
-class Command {
- public:
-  uint16_t command_id_ = CommandID::kNull; // If you're exceeding 65535 unique messages in a game, you're doing something wrong
-};
+    class Command {
+    public:
+        uint16_t command_id_ = CommandID::kNull; // If you're exceeding 65535 unique messages in a game, you're doing something wrong
+    };
 
-class GetPosition : public Command {
- public:
-  uint16_t command_id_ = CommandID::kGetPosition;
-};
+    class GetPosition : public Command {
+    public:
+        uint16_t command_id_ = CommandID::kGetPosition;
+    };
 
-class SetPosition : public Command {
- public:
-  uint16_t command_id_ = CommandID::kSetPosition;
-};
+    class SetPosition : public Command {
+    public:
+        uint16_t command_id_ = CommandID::kSetPosition;
+    };
 
 } // namespace spectre
 

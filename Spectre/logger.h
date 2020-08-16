@@ -23,31 +23,32 @@
 
 namespace spectre {
 
-class Logger {
- public:
-  enum Level {
-     DEBUG,
-     INFO,
-     WARNING,
-     ERROR
-  };
+    class Logger {
+    public:
+        enum Level {
+            DEBUG,
+            INFO,
+            WARNING,
+            ERROR
+        };
 
-  Logger();
-  ~Logger();
+        Logger();
 
-  void Log(Level level, std::string message);
+        ~Logger();
 
- private:
-  std::ofstream file_stream;
-  static const std::string logger_level_strings_[];
-};
+        void Log(Level level, std::string message);
 
-const std::string Logger::logger_level_strings_[] = {
-  "DEBUG",
-  "INFO",
-  "WARNING",
-  "ERROR"
-}
+    private:
+        std::ofstream file_stream;
+        static const std::string logger_level_strings_[];
+    };
+
+    const std::string Logger::logger_level_strings_[] = {
+            "DEBUG",
+            "INFO",
+            "WARNING",
+            "ERROR"
+    };
 
 } // namespace spectre
 

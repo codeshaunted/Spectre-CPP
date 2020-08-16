@@ -1,3 +1,5 @@
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "cppcoreguidelines-slicing"
 // main.cc
 // Copyright (C) 2020 Spectre Team
 //
@@ -30,3 +32,5 @@ int main() {
   //spectre::World::Instance().GetObjectManager().RemoveObject(object.GetID());
   return 0;
 }
+
+#pragma clang diagnostic pop
