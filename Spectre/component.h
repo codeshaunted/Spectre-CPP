@@ -29,7 +29,7 @@ class Command;
 class Component {
  public:
   virtual bool ExecuteCommand(std::shared_ptr<Command> command) { return false; }
-  uint16_t component_id_ = ComponentID::kNull;
+  uint16_t component_id_ = ComponentID::kNullComponent;
 };
 
 } // namespace spectre
