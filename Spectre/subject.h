@@ -18,11 +18,24 @@
 #ifndef SUBJECT_H_
 #define SUBJECT_H_
 
+#include <vector>
+#include <algorithm>
+#include <map>
+#include <memory>
+
+#include "event.h"
+#include "observer.h"
+
 namespace spectre {
 
 class Subject {
- public:
- private:
+public:
+  void add_observer(std::shared_ptr<Observer> observer);
+  void remove_observer(std::shared_ptr<Observer> observer);
+private:
+  std::vector<std::shared_ptr<spectre::Observer>> observers;
+protected:
+  void notify(const Object& object, spectre::EventID event);
 };
 
 } // namespace spectre

@@ -1,15 +1,25 @@
+# Library Ignores
 
-Debug/
-build/
-.vs/Spectre/v16/
-
-#don't include third party files, but leave the dirs:
+## Don't include third party files, but leave the dirs:
 Spectre/third_party/wren/lib/*
 Spectre/third_party/wren/lib/!readme.txt
 Spectre/third_party/wren/src/include/*
 Spectre/third_party/wren/src/include/!readme.txt
 
+# Scons build files
 *.dblite
 *.o
 
+# Spectre Logs
+
 Spectre/logs/
+
+# Visual Studio
+.vs/Spectre/v16/
+.vscode/
+Debug/
+build/
+
+# Jetbrains CLion
+.idea/
+

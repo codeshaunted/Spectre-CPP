@@ -18,10 +18,15 @@
 #ifndef OBSERVER_H_
 #define OBSERVER_H_
 
+#include "event.h"
+#include "object.h"
+
 namespace spectre {
 
 class Observer {
  public:
+  virtual ~Observer() {}
+  virtual void on_notify(const Object& object, spectre::EventID event) = 0;
  private:
 };
 
