@@ -1,4 +1,4 @@
-// component_id.h
+// logger.cc
 // Copyright (C) 2020 Spectre Team
 //
 // This program is free software; you can redistribute it and/or
@@ -15,16 +15,20 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#ifndef COMPONENT_ID_H_
-#define COMPONENT_ID_H_
+#include "logger.h"
+
+#include <iostream>
 
 namespace spectre {
 
-enum ComponentID : uint16_t {
-  kNullComponent,
-  kPhysics,
-};
+  Logger::Logger() {
+  }
+
+  Logger::~Logger() {
+  }
+
+  void Logger::Log(Level level, std::string message) {
+    std::cout << "[" << logger_level_strings_[level] << "] " << message << std::endl;
+  }
 
 } // namespace spectre
-
-#endif // COMPONENT_ID_H_

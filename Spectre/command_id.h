@@ -21,9 +21,9 @@
 namespace spectre {
 
 enum CommandID : uint16_t {
-  kNull = 0,
-  kGetPosition = 1,
-  kSetPosition = 2,
+  kNullCommand,
+  kGetPosition,
+  kSetPosition,
 };
 
 }
