@@ -1,7 +1,9 @@
 src_files = Split("""main.cc
                      component.cc
                      object.cc
-                     objectmanager.cc""")
+                     objectmanager.cc
+                     observer.cc
+                     observer.h""")
 
 WREN_LIB_PATH = 'wren/lib'
 WREN_INCLUDE_PATH = 'wren/src/include'

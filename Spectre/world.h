@@ -20,6 +20,7 @@
 namespace spectre {
 
 class ObjectManager;
+class Logger;
 
 class World {
  public:
@@ -33,9 +34,15 @@ class World {
     return *object_manager_;
   }
 
+  Logger& GetLogger() {
+    if (logger_ == NULL) logger_ = std::make_shared<Logger>();
+    return *logger_;
+  }
+
  private:
   static World instance_;
   std::shared_ptr<ObjectManager> object_manager_;
+  std::shared_ptr<Logger> logger_;
 };
 
 } // namespace spectre

@@ -17,18 +17,79 @@
 
 #include "logger.h"
 
+#include <chrono>
 #include <iostream>
+#include <filesystem>
+#include <sstream>
+#include <sys/stat.h>
+
+// TODO: extend the logger
 
 namespace spectre {
 
-  Logger::Logger() {
+const std::string Logger::logger_level_strings_[] = {
+  "DEBUG",
+  "INFO",
+  "WARNING",
+  "ERROR"
+};
+
+Logger::Logger() {
+  const std::string& path = output_directory_;
+	struct stat buffer;
+  bool DoesPathExist = (stat(path.c_str(), &buffer) == 0);
+  if (!DoesPathExist) std::filesystem::create_directory(output_directory_);
+
+  const std::string& path2 = output_directory_ + "/" + latest_log_ + "." + file_extension_;
+	struct stat buffer2;
+  bool DoesPathExist2 = (stat(path2.c_str(), &buffer2) == 0);
+
+  if (DoesPathExist) {
+    // Read previous log
+    std::string previous_log_data;
+
+    file_stream_.open(output_directory_ + "/" + latest_log_ + "." + file_extension_);
+    file_stream_.seekg(0, std::ios::end);
+    previous_log_data.reserve(file_stream_.tellg());
+    file_stream_.seekg(0, std::ios::beg);
+    previous_log_data.assign((std::istreambuf_iterator<char>(file_stream_)), std::istreambuf_iterator<char>());
+    file_stream_.close();
+
+    // Write to previous log file
+    file_stream_.open(output_directory_ + "/" + previous_log_ + "." + file_extension_, std::ios::out, std::ios::trunc);
+    file_stream_.write(previous_log_data.c_str(), previous_log_data.size());
+    file_stream_.close();
   }
 
-  Logger::~Logger() {
-  }
+  // Open current log file
+  file_stream_.open(output_directory_ + "/" + latest_log_ + "." + file_extension_, std::ios::out, std::ios::trunc);
+}
 
-  void Logger::Log(Level level, std::string message) {
-    std::cout << "[" << logger_level_strings_[level] << "] " << message << std::endl;
-  }
+Logger::~Logger() {
+  if (file_stream_.is_open()) file_stream_.close();
+}
+
+void Logger::Log(Level level, std::string message) {
+  auto current_time = std::chrono::system_clock::now();
+  time_t time = std::chrono::system_clock::to_time_t(current_time);
+  struct tm local_time;
+
+  #ifdef __unix__
+      localtime_r(&time, &local_time);
+  #elif _WIN32
+      localtime_s(&local_time, &time);
+  #else
+      local_time = *localtime(&time); // this is BAD because localtime is NOT threadsafe, hence the preprocessor directive for the win32/*nix alternatives
+  #endif
+
+  char time_string [70];
+  strftime(time_string, sizeof(time_string), "%d-%m-%y %H:%M:%S", &local_time);
+
+  std::stringstream log_message;
+  log_message << time_string << " [" << logger_level_strings_[level] << "] " << message << std::endl;
+
+  std::cout << log_message.str();
+  file_stream_.write(log_message.str().c_str(), log_message.str().size());
+}
 
 } // namespace spectre

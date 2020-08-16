@@ -1,0 +1,1 @@
+When contributing, please try to conform to the C++ Google Style Guide (https://google.github.io/styleguide/cppguide.html). We aren't too strict on this, with some things being largely ignored (forward declarations), but try to follow it as much as you can.

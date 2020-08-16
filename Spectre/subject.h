@@ -18,11 +18,19 @@
 #ifndef SUBJECT_H_
 #define SUBJECT_H_
 
+#include <vector>
+#include <algorithm>
+#include <map>
+#include <memory>
+
 namespace spectre {
 
 class Subject {
- public:
- private:
+public:
+  void addObserver(Observer* observer);
+  void removeObserver(Observer* observer);
+private:
+  std::vector<spectre::Observer*> observers;
 };
 
 } // namespace spectre

@@ -38,16 +38,14 @@ class Logger {
   void Log(Level level, std::string message);
 
  private:
-  std::ofstream file_stream;
+  std::fstream file_stream_;
   static const std::string logger_level_strings_[];
+  // TODO: make these not hardcoded?
+  std::string output_directory_ = "logs";
+  std::string latest_log_ = "latest";
+  std::string previous_log_ = "previous";
+  std::string file_extension_ = "log";
 };
-
-const std::string Logger::logger_level_strings_[] = {
-  "DEBUG",
-  "INFO",
-  "WARNING",
-  "ERROR"
-}
 
 } // namespace spectre
 

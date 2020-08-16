@@ -28,7 +28,7 @@ class Object;
 
 class Command {
  public:
-  uint16_t command_id_ = CommandID::kNull; // If you're exceeding 65535 unique messages in a game, you're doing something wrong
+  uint16_t command_id_ = CommandID::kNullCommand; // If you're exceeding 65535 unique messages in a game, you're doing something wrong
 };
 
 class GetPosition : public Command {
