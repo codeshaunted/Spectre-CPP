@@ -2,8 +2,8 @@ src_files = Split("""main.cc
                      component.cc
                      object.cc
                      objectmanager.cc
-                     event.h
-                     event.cc
+                     event_id.h
+                     event_id.cc
                      observer.cc
                      observer.h
                      subject.cc

@@ -19,35 +19,23 @@
 
 namespace spectre {
 
-class Subject {
-public:
-  void add_observer(std::shared_ptr<Observer> observer) {
-    observers.push_back(observer);
-  }
+void Subject::add_observer(std::shared_ptr<Observer> observer) {
+  observers.push_back(observer);
+}
 
-  void remove_observer(std::shared_ptr<Observer> observer) {
-    if (std::find(observers.begin(), observers.end(), observer) != observers.end()) {
-      int count = 0;
-      for (auto item : observers) {
-        count =+ 1;
-        if (item == observer) {
-          observers.erase(count);
-          return;
-        }
-      }
-    }
+void Subject::remove_observer(std::shared_ptr<Observer> observer) {
+  std::vector<std::shared_ptr<spectre::Observer>>::iterator position = std::find(observers.begin(), observers.end(), observer);
+  if (position != observers.end()) {
+    observers.erase(position);
   }
+}
 
-private:
-  std::vector<std::shared_ptr<spectre::Observer>> observers;
-protected:
-  void notify(const Object& object, spectre::EventID event)
+void Subject::notify(const Object& object, spectre::EventID event)
+{
+  for (int i = 0; i < observers.size(); i++)
   {
-    for (int i = 0; i < observers.size(); i++)
-    {
-      observers[i]->on_notify(object, event);
-    }
+    observers[i]->on_notify(object, event);
   }
-};
+}
 
 } // namespace spectre

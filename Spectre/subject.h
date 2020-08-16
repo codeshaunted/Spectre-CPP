@@ -23,7 +23,7 @@
 #include <map>
 #include <memory>
 
-#include "event.h"
+#include "event_id.h"
 #include "observer.h"
 
 namespace spectre {

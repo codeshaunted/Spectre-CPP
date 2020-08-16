@@ -18,7 +18,7 @@
 #ifndef OBSERVER_H_
 #define OBSERVER_H_
 
-#include "event.h"
+#include "event_id.h"
 #include "object.h"
 
 namespace spectre {

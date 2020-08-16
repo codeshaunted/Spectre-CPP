@@ -1,4 +1,4 @@
-// event.cc
+// event_id.h
 // Copyright (C) 2020 Spectre Team
 //
 // This program is free software; you can redistribute it and/or
@@ -15,6 +15,17 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-namespace spectre {
+#ifndef EVENT_H_
+#define EVENT_H_
 
+#include <algorithm>
+
+namespace spectre {
+    enum EventID {
+        kNullEvent,
+        kFallEvent,
+        kDieEvent,
+    };
 }
+
+#endif
