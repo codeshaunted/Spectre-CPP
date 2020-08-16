@@ -5,8 +5,8 @@
 #include <string>
 
 std::string getWrenScript(std::string scriptName) {
-    ifstream myfile;
-    myfile.open("Spectre/wren_src/" + scriptName);
+    std::cout << "WARNING: getWrenScript not inplementing. Returning hello world." << std::endl;
+    return "System.print(\"I am running in a VM and this is coming from a not implemented function!\")";
 }
 
 void writeFn(WrenVM* vm, const char* text) {
