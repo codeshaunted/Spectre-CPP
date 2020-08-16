@@ -19,23 +19,23 @@
 
 namespace spectre {
 
-    class ObjectManager;
+class ObjectManager;
 
-    class World {
-    public:
-        static World &Instance() {
-            static std::shared_ptr<World> instance = std::make_shared<World>();
-            return *instance;
-        }
+class World {
+ public:
+  static World& Instance() {
+    static std::shared_ptr<World> instance = std::make_shared<World>();
+    return *instance;
+  }
 
-        ObjectManager &GetObjectManager() {
-            if (object_manager_ == nullptr) object_manager_ = std::make_shared<ObjectManager>();
-            return *object_manager_;
-        }
+  ObjectManager& GetObjectManager() {
+    if (object_manager_ == NULL) object_manager_ = std::make_shared<ObjectManager>();
+    return *object_manager_;
+  }
 
-    private:
-        static World instance_;
-        std::shared_ptr<ObjectManager> object_manager_;
-    };
+ private:
+  static World instance_;
+  std::shared_ptr<ObjectManager> object_manager_;
+};
 
 } // namespace spectre

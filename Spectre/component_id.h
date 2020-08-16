@@ -20,11 +20,10 @@
 
 namespace spectre {
 
-    enum ComponentID : uint16_t {
-        kNullComponent,
-        kPhysics,
-        kNull
-    };
+enum ComponentID : uint16_t {
+  kNullComponent,
+  kPhysics,
+};
 
 } // namespace spectre
 
