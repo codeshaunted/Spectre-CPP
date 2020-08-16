@@ -1,4 +1,4 @@
-// objectmanager.cc
+// physics_component.h
 // Copyright (C) 2020 Spectre Team
 //
 // This program is free software; you can redistribute it and/or
@@ -15,31 +15,23 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#include "objectmanager.h"
+#ifndef PHYSICS_COMPONENT_H_
+#define PHYSICS_COMPONENT_H_
 
-#include "object.h"
+#include <memory>
+
+#include "component.h"
 
 namespace spectre {
 
-ObjectManager::ObjectManager()
-{
-  next_id_ = 0;
-}
+class Command;
 
-void ObjectManager::AddObject(Object object) {
-  uint64_t id = GetNewID();
-  object.SetID(id);
-  objects_.insert({ id, std::make_shared<Object>(object) });
-}
-
-void ObjectManager::RemoveObject(uint64_t id) {
-  objects_.erase(id);
-}
-
-uint64_t ObjectManager::GetNewID()
-{
-  ++next_id_;
-  return next_id_;
-}
+class PhysicsComponent : public Component {
+ public:
+  bool ExecuteCommand(std::shared_ptr<Command> command) override;
+  uint16_t component_id_ = ComponentID::kPhysics;
+};
 
 } // namespace spectre
+
+#endif // PHYSICS_COMPONENT_H_

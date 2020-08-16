@@ -21,9 +21,9 @@
 #include <map>
 #include <memory>
 
-#include "object.h"
-
 namespace spectre {
+
+class Object;
 
 class ObjectManager {
  public:

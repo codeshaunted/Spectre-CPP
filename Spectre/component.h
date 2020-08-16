@@ -18,10 +18,18 @@
 #ifndef COMPONENT_H_
 #define COMPONENT_H_
 
+#include <memory>
+
+#include "component_id.h"
+
 namespace spectre {
 
+class Command;
+
 class Component {
-	
+ public:
+  virtual bool ExecuteCommand(std::shared_ptr<Command> command) { return false; }
+  uint16_t component_id_ = ComponentID::kNull;
 };
 
 } // namespace spectre

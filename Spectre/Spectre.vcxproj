@@ -19,15 +19,25 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="command.cc" />
     <ClCompile Include="component.cc" />
     <ClCompile Include="main.cc" />
     <ClCompile Include="object.cc" />
     <ClCompile Include="objectmanager.cc" />
+    <ClCompile Include="observer.cc" />
+    <ClCompile Include="physics_component.cc" />
+    <ClCompile Include="subject.cc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="command.h" />
+    <ClInclude Include="command_id.h" />
     <ClInclude Include="component.h" />
+    <ClInclude Include="component_id.h" />
     <ClInclude Include="object.h" />
     <ClInclude Include="objectmanager.h" />
+    <ClInclude Include="observer.h" />
+    <ClInclude Include="physics_component.h" />
+    <ClInclude Include="subject.h" />
     <ClInclude Include="world.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

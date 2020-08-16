@@ -17,10 +17,16 @@
 
 #include "world.h"
 #include "object.h"
+#include "objectmanager.h"
+#include "command.h"
+#include "physics_component.h"
 
 int main() {
   spectre::Object object = spectre::Object();
   spectre::World::Instance().GetObjectManager().AddObject(object);
-  spectre::World::Instance().GetObjectManager().RemoveObject(object.GetID());
+  spectre::PhysicsComponent phys_comp = spectre::PhysicsComponent();
+  object.AddComponent(phys_comp);
+  object.ExecuteCommand(std::make_shared<spectre::GetPosition>(spectre::GetPosition()));
+  //spectre::World::Instance().GetObjectManager().RemoveObject(object.GetID());
   return 0;
 }

@@ -1,4 +1,4 @@
-// objectmanager.cc
+// subject.h
 // Copyright (C) 2020 Spectre Team
 //
 // This program is free software; you can redistribute it and/or
@@ -15,31 +15,16 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#include "objectmanager.h"
-
-#include "object.h"
+#ifndef SUBJECT_H_
+#define SUBJECT_H_
 
 namespace spectre {
 
-ObjectManager::ObjectManager()
-{
-  next_id_ = 0;
-}
-
-void ObjectManager::AddObject(Object object) {
-  uint64_t id = GetNewID();
-  object.SetID(id);
-  objects_.insert({ id, std::make_shared<Object>(object) });
-}
-
-void ObjectManager::RemoveObject(uint64_t id) {
-  objects_.erase(id);
-}
-
-uint64_t ObjectManager::GetNewID()
-{
-  ++next_id_;
-  return next_id_;
-}
+class Subject {
+ public:
+ private:
+};
 
 } // namespace spectre
+
+#endif // SUBJECT_H_
