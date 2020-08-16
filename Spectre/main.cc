@@ -15,6 +15,10 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
 #include "world.h"
 #include "object.h"
 #include "objectmanager.h"
@@ -22,14 +26,38 @@
 #include "physics_component.h"
 #include "logger.h"
 
-int main() {
-  spectre::World::Instance().GetLogger().Log(spectre::Logger::Level::INFO, "test");
-  //spectre::World::Instance().GetLogger().Log(spectre::Logger::)
-  //spectre::Object object = spectre::Object();
-  //spectre::World::Instance().GetObjectManager().AddObject(object);
-  //spectre::PhysicsComponent phys_comp = spectre::PhysicsComponent();
-  //object.AddComponent(phys_comp);
-  //object.ExecuteCommand(std::make_shared<spectre::GetPosition>(spectre::GetPosition()));
-  //spectre::World::Instance().GetObjectManager().RemoveObject(object.GetID());
-  return 0;
+#include <iostream>
+
+typedef int(__cdecl* f_game_main)();
+
+int main(int argc, char** argv) {
+  // TODO: Make a real CLI argument parser
+  for (int i = 0; i < argc; ++i) {
+    std::cout << argv[i] << std::endl;
+    if (argv[i] == "-game") {
+      if (argv[i + 1] != NULL) {
+#ifdef _WIN32
+        std::string dll_name = argv[i + 1];
+        dll_name += ".dll";
+
+        wchar_t *game_name = new wchar_t[dll_name.length()];
+        size_t out_size;
+        mbstowcs_s(&out_size, game_name, dll_name.length(), dll_name.c_str(), dll_name.length() - 1);
+        HINSTANCE game_dll = LoadLibrary(game_name);
+        delete[] game_name;
+
+        f_game_main game_main = (f_game_main)GetProcAddress(game_dll, "game_main");
+#endif
+        if (!game_main) {
+          spectre::World::Instance().GetLogger().Log(spectre::Logger::kError, "Failed to locate game_main function!");
+          return EXIT_FAILURE;
+        }
+        else {
+          (game_main);
+        }
+      }
+    }
+  }
+
+  return EXIT_SUCCESS;
 }

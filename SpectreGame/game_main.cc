@@ -1,4 +1,4 @@
-// logger.h
+// game_main.cc
 // Copyright (C) 2020 Spectre Team
 //
 // This program is free software; you can redistribute it and/or
@@ -15,38 +15,10 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#ifndef LOGGER_H_
-#define LOGGER_H_
+#include <iostream>
 
-#include <string>
-#include <fstream>
-
-namespace spectre {
-
-class Logger {
- public:
-  enum Level {
-    kDebug,
-    kInfo,
-    kWarning,
-    kError,
-  };
-
-  Logger();
-  ~Logger();
-
-  void Log(Level level, std::string message);
-
- private:
-  std::fstream file_stream_;
-  static const std::string logger_level_strings_[];
-  // TODO: make these not hardcoded?
-  std::string output_directory_ = "logs";
-  std::string latest_log_ = "latest";
-  std::string previous_log_ = "previous";
-  std::string file_extension_ = "log";
-};
-
-} // namespace spectre
-
-#endif // LOGGER_H_
+extern "C" int __declspec(dllexport) game_main() {
+  std::cout << "coming at ya from the game dll" << std::endl;
+  //spectre::World::Instance().GetLogger().Log(spectre::Logger::kInfo, "coming at ya from the game dll");
+  return 1;
+}
