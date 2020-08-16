@@ -1,4 +1,7 @@
 
 Debug/
-
+build/
 .vs/Spectre/v16/
+
+*.dblite
+*.o
