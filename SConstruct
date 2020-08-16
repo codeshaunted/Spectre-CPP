@@ -7,4 +7,5 @@
 # WREN_LIB_PATH = 'wren/lib'
 # WREN_INCLUDE_PATH = 'wren/src/include'
 
-Program('wrentest', 'Spectre/wrentest.cc', parse_flags='-Iwren/src/include -Lwren/lib -llibwren')
+# Program('wrentest', 'Spectre/wrentest.cc', parse_flags='-Iwren/src/include -Lwren/lib -llibwren')
+SConscript('Spectre/SConscript', variant_dir='build')
