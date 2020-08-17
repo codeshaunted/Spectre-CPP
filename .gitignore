@@ -2,6 +2,7 @@
 Debug/
 Build/
 .vs/Spectre/v16/
+.vscode
 
 #don't include third party files, but leave the dirs:
 Spectre/third_party/wren/lib/*
