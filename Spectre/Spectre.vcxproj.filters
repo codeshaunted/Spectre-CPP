@@ -42,6 +42,9 @@
     <ClCompile Include="transform_component.cc">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
+    <ClCompile Include="world.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="component.h">

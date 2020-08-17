@@ -31,6 +31,7 @@ enum class ComponentID : uint16_t {
 
 class Component {
  public:
+  virtual void Update(float delta_time) {};
   virtual bool ExecuteCommand(std::shared_ptr<BaseCommand> command) { return false; }
   ComponentID component_id_ = ComponentID::kNullComponent;
 };

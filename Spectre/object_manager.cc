@@ -27,6 +27,12 @@ ObjectManager::ObjectManager()
   next_id_ = 0;
 }
 
+void ObjectManager::Update(float delta_time) {
+  for (auto object : objects_) {
+    object.second->Update(delta_time);
+  }
+}
+
 void ObjectManager::AddObject(std::shared_ptr<Object> object) {
   ObjectID id = GetNewID();
   object->SetID(id);

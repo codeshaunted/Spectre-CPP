@@ -26,6 +26,7 @@
     <ClCompile Include="object.cc" />
     <ClCompile Include="object_manager.cc" />
     <ClCompile Include="transform_component.cc" />
+    <ClCompile Include="world.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="command.h" />

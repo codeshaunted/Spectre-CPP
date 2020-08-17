@@ -34,11 +34,13 @@ class Object {
   Object();
   ~Object();
 
+  void Update(float delta_time);
+
   ObjectID GetID() { return id_; }
   void SetID(ObjectID id) { id_ = id; }
 
-  template <class T> void AddComponent(T component) {
-    components_.insert({ component.component_id_, std::make_shared<T>(component) });
+  template <class T> void AddComponent(std::shared_ptr<T> component) {
+    components_.insert({ component->component_id_, component });
   }
 
   bool ExecuteCommand(std::shared_ptr<BaseCommand> command);

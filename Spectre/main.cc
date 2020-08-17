@@ -23,8 +23,6 @@
 #include "transform_component.h"
 #include "logger.h"
 
-#include <iostream>
-
 #ifdef _WIN32
 #include <windows.h>
 #endif
@@ -63,6 +61,7 @@ int main(int argc, char** argv) {
 
   return EXIT_SUCCESS;*/
 
+  /*
   std::shared_ptr<spectre::Object> obj = std::make_shared<spectre::Object>(spectre::Object());
   obj->AddComponent<spectre::TransformComponent>(spectre::TransformComponent());
   spectre::World::Instance().GetObjectManager().AddObject(obj);
@@ -72,5 +71,10 @@ int main(int argc, char** argv) {
 
   spectre::World::Instance().GetObjectManager().ExecuteCommand(std::make_shared<spectre::SetPosition>(set_pos));
   spectre::World::Instance().GetObjectManager().ExecuteCommand(std::make_shared<spectre::GetPosition>(get_pos));
+  return EXIT_SUCCESS;
+  */
+
+  spectre::World::Instance().WorldLoop();
+
   return EXIT_SUCCESS;
 }
