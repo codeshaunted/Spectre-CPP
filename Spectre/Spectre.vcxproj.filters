@@ -30,23 +30,17 @@
     <ClCompile Include="object.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="objectmanager.cc">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="subject.cc">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="observer.cc">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="command.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="physics_component.cc">
-      <Filter>Source Files\Components</Filter>
-    </ClCompile>
     <ClCompile Include="logger.cc">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="object_manager.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="transform_component.cc">
+      <Filter>Source Files\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -56,32 +50,20 @@
     <ClInclude Include="object.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="objectmanager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="world.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="subject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="observer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="command.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="command_id.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="physics_component.h">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="component_id.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="logger.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="object_manager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="transform_component.h">
+      <Filter>Header Files\Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

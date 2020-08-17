@@ -29,11 +29,12 @@ Object::Object() {
 Object::~Object() {
 }
 
+/*
 void Object::AddComponent(Component component) {
   components_.insert({ component.component_id_, std::make_shared<Component>(component) });
-}
+}*/
 
-bool Object::ExecuteCommand(std::shared_ptr<Command> command) {
+bool Object::ExecuteCommand(std::shared_ptr<BaseCommand> command) {
   switch (command->command_id_) {
     default: {
       return ExecuteCommandOnComponents(command);
@@ -41,7 +42,7 @@ bool Object::ExecuteCommand(std::shared_ptr<Command> command) {
   }
 }
 
-bool Object::ExecuteCommandOnComponents(std::shared_ptr<Command> command)
+bool Object::ExecuteCommandOnComponents(std::shared_ptr<BaseCommand> command)
 {
   bool command_handled = false;
 

@@ -18,29 +18,11 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="command.cc" />
-    <ClCompile Include="component.cc" />
-    <ClCompile Include="logger.cc" />
-    <ClCompile Include="main.cc" />
-    <ClCompile Include="object.cc" />
-    <ClCompile Include="object_manager.cc" />
-    <ClCompile Include="transform_component.cc" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="command.h" />
-    <ClInclude Include="component.h" />
-    <ClInclude Include="logger.h" />
-    <ClInclude Include="object.h" />
-    <ClInclude Include="object_manager.h" />
-    <ClInclude Include="transform_component.h" />
-    <ClInclude Include="world.h" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{89b9f6ab-183d-4a05-8efa-7c4ea827d542}</ProjectGuid>
-    <RootNamespace>Spectre</RootNamespace>
+    <ProjectGuid>{6d80d59c-4fde-4ea0-960e-fe7936f39717}</ProjectGuid>
+    <RootNamespace>SpectreGame</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -58,7 +40,7 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
@@ -135,6 +117,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>../Spectre;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -157,6 +140,9 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="game_main.cc" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

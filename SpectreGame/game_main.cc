@@ -1,4 +1,4 @@
-// subject.h
+// game_main.cc
 // Copyright (C) 2020 Spectre Team
 //
 // This program is free software; you can redistribute it and/or
@@ -15,16 +15,10 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#ifndef SUBJECT_H_
-#define SUBJECT_H_
+#include <iostream>
 
-namespace spectre {
-
-class Subject {
- public:
- private:
-};
-
-} // namespace spectre
-
-#endif // SUBJECT_H_
+extern "C" int __declspec(dllexport) game_main() {
+  std::cout << "coming at ya from the game dll" << std::endl;
+  //spectre::World::Instance().GetLogger().Log(spectre::Logger::kInfo, "coming at ya from the game dll");
+  return 1;
+}

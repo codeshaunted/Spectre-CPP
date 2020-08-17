@@ -26,7 +26,7 @@
 
 namespace spectre {
 
-const std::string Logger::logger_level_strings_[] = {
+const std::string Logger::kLoggerLevelStrings_[] = {
   "DEBUG",
   "INFO",
   "WARNING",
@@ -34,27 +34,27 @@ const std::string Logger::logger_level_strings_[] = {
 };
 
 Logger::Logger() {
-  if (!std::filesystem::exists(output_directory_)) std::filesystem::create_directory(output_directory_);
+  if (!std::filesystem::exists(kOutputDirectory_)) std::filesystem::create_directory(kOutputDirectory_);
 
-  if (std::filesystem::exists(output_directory_ + "/" + latest_log_ + "." + file_extension_)) {
+  if (std::filesystem::exists(kOutputDirectory_ + "/" + kLatestLog_ + "." + kFileExtension_)) {
     // Read previous log
-    std::string previous_log_data;
+    std::string kPreviousLog_data;
 
-    file_stream_.open(output_directory_ + "/" + latest_log_ + "." + file_extension_);
+    file_stream_.open(kOutputDirectory_ + "/" + kLatestLog_ + "." + kFileExtension_);
     file_stream_.seekg(0, std::ios::end);
-    previous_log_data.reserve(file_stream_.tellg());
+    kPreviousLog_data.reserve(file_stream_.tellg());
     file_stream_.seekg(0, std::ios::beg);
-    previous_log_data.assign((std::istreambuf_iterator<char>(file_stream_)), std::istreambuf_iterator<char>());
+    kPreviousLog_data.assign((std::istreambuf_iterator<char>(file_stream_)), std::istreambuf_iterator<char>());
     file_stream_.close();
 
     // Write to previous log file
-    file_stream_.open(output_directory_ + "/" + previous_log_ + "." + file_extension_, std::ios::out, std::ios::trunc);
-    file_stream_.write(previous_log_data.c_str(), previous_log_data.size());
+    file_stream_.open(kOutputDirectory_ + "/" + kPreviousLog_ + "." + kFileExtension_, std::ios::out, std::ios::trunc);
+    file_stream_.write(kPreviousLog_data.c_str(), kPreviousLog_data.size());
     file_stream_.close();
   }
 
   // Open current log file
-  file_stream_.open(output_directory_ + "/" + latest_log_ + "." + file_extension_, std::ios::out, std::ios::trunc);
+  file_stream_.open(kOutputDirectory_ + "/" + kLatestLog_ + "." + kFileExtension_, std::ios::out, std::ios::trunc);
 }
 
 Logger::~Logger() {
@@ -78,7 +78,7 @@ void Logger::Log(Level level, std::string message) {
   strftime(time_string, sizeof(time_string), "%d-%m-%y %H:%M:%S", &local_time);
 
   std::stringstream log_message;
-  log_message << time_string << " [" << logger_level_strings_[level] << "] " << message << std::endl;
+  log_message << time_string << " [" << kLoggerLevelStrings_[(int)level] << "] " << message << std::endl;
 
   std::cout << log_message.str();
   file_stream_.write(log_message.str().c_str(), log_message.str().size());
