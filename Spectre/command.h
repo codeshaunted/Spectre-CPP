@@ -18,27 +18,48 @@
 #ifndef COMMAND_H_
 #define COMMAND_H_
 
-#include <cstdint>
+#include <vector>
+#include <memory>
+#include <map>
 
-#include "command_id.h"
+#include "object.h"
+
+// maybe toss this into a spectre::command namespace?
 
 namespace spectre {
 
-class Object;
-
-class Command {
- public:
-  uint16_t command_id_ = CommandID::kNullCommand; // If you're exceeding 65535 unique messages in a game, you're doing something wrong
+enum class CommandID {
+  kSetPosition,
+  kGetPosition
 };
 
-class GetPosition : public Command {
+class BaseCommand {
+ protected:
+  BaseCommand(ObjectID target_id, CommandID command_id) : target_id_(target_id), command_id_(command_id) {};
  public:
-  uint16_t command_id_ = CommandID::kGetPosition;
+  ObjectID target_id_;
+  CommandID command_id_;
 };
 
-class SetPosition : public Command {
+// TODO: implement Vector3 and Quaternion
+class BasePositionCommand : public BaseCommand {
+ protected:
+  BasePositionCommand(ObjectID target_id, CommandID command_id, float x = 0.0f, float y = 0.0f, float z = 0.0f) : BaseCommand(target_id, command_id), x_(x), y_(y), z_(z) {};
  public:
-  uint16_t command_id_ = CommandID::kSetPosition;
+  float x_;
+  float y_;
+  float z_;
+};
+
+class SetPosition : public BasePositionCommand {
+ public:
+  SetPosition(ObjectID target_id, float x, float y, float z) : BasePositionCommand(target_id, CommandID::kSetPosition, x, y, z) {};
+};
+
+
+class GetPosition : public BasePositionCommand {
+ public:
+  GetPosition(ObjectID target_id) : BasePositionCommand(target_id, CommandID::kGetPosition) {};
 };
 
 } // namespace spectre

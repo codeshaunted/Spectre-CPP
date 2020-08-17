@@ -19,18 +19,21 @@
 
 #include <iostream>
 
-#include "command_id.h"
 #include "command.h"
+#include "logger.h"
+#include "world.h"
+#include "object_manager.h"
 
 namespace spectre {
 
-bool PhysicsComponent::ExecuteCommand(std::shared_ptr<Command> command) { 
+bool PhysicsComponent::ExecuteCommand(std::shared_ptr<BaseCommand> command) { 
   switch (command->command_id_) {
-    case CommandID::kGetPosition: {
-      std::cout << "SET POS!!!" << std::endl;
+    case CommandID::kSetPosition: {
+      World::Instance().GetLogger().Log(Logger::Level::kInfo, "SetPosition command called!");
       break;
     }
-    case CommandID::kSetPosition: {
+    case CommandID::kGetPosition: {
+      World::Instance().GetLogger().Log(Logger::Level::kInfo, "GetPosition command called!");
       break;
     }
     default: {

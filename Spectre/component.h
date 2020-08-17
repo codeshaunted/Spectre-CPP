@@ -20,16 +20,19 @@
 
 #include <memory>
 
-#include "component_id.h"
-
 namespace spectre {
 
-class Command;
+class BaseCommand;
+
+enum class ComponentID : uint16_t {
+  kNullComponent,
+  kPhysics,
+};
 
 class Component {
  public:
-  virtual bool ExecuteCommand(std::shared_ptr<Command> command) { return false; }
-  uint16_t component_id_ = ComponentID::kNullComponent;
+  virtual bool ExecuteCommand(std::shared_ptr<BaseCommand> command) { return false; }
+  ComponentID component_id_ = ComponentID::kNullComponent;
 };
 
 } // namespace spectre

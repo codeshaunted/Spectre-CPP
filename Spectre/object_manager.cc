@@ -1,4 +1,4 @@
-// objectmanager.cc
+// object_manager.cc
 // Copyright (C) 2020 Spectre Team
 //
 // This program is free software; you can redistribute it and/or
@@ -15,9 +15,10 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#include "objectmanager.h"
+#include "object_manager.h"
 
 #include "object.h"
+#include "command.h"
 
 namespace spectre {
 
@@ -26,17 +27,27 @@ ObjectManager::ObjectManager()
   next_id_ = 0;
 }
 
-void ObjectManager::AddObject(Object object) {
-  uint64_t id = GetNewID();
-  object.SetID(id);
-  objects_.insert({ id, std::make_shared<Object>(object) });
+void ObjectManager::AddObject(std::shared_ptr<Object> object) {
+  ObjectID id = GetNewID();
+  object->SetID(id);
+  objects_.insert({ id, object });
 }
 
-void ObjectManager::RemoveObject(uint64_t id) {
+std::shared_ptr<Object> ObjectManager::GetObject(ObjectID id)
+{
+  return objects_[id];
+}
+
+bool ObjectManager::ExecuteCommand(std::shared_ptr<BaseCommand> command)
+{
+  return GetObject(command->target_id_)->ExecuteCommand(command);
+}
+
+void ObjectManager::RemoveObject(ObjectID id) {
   objects_.erase(id);
 }
 
-uint64_t ObjectManager::GetNewID()
+ObjectID ObjectManager::GetNewID()
 {
   ++next_id_;
   return next_id_;

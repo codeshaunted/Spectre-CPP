@@ -24,22 +24,16 @@
     <ClCompile Include="logger.cc" />
     <ClCompile Include="main.cc" />
     <ClCompile Include="object.cc" />
-    <ClCompile Include="objectmanager.cc" />
-    <ClCompile Include="observer.cc" />
+    <ClCompile Include="object_manager.cc" />
     <ClCompile Include="physics_component.cc" />
-    <ClCompile Include="subject.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="command.h" />
-    <ClInclude Include="command_id.h" />
     <ClInclude Include="component.h" />
-    <ClInclude Include="component_id.h" />
     <ClInclude Include="logger.h" />
     <ClInclude Include="object.h" />
-    <ClInclude Include="objectmanager.h" />
-    <ClInclude Include="observer.h" />
+    <ClInclude Include="object_manager.h" />
     <ClInclude Include="physics_component.h" />
-    <ClInclude Include="subject.h" />
     <ClInclude Include="world.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

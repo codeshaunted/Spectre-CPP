@@ -18,5 +18,4 @@
 #include "command.h"
 
 namespace spectre {
-
 }; // namespace spectre

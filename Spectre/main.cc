@@ -15,22 +15,24 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#ifdef _WIN32
-#include <windows.h>
-#endif
-
 #include "world.h"
 #include "object.h"
-#include "objectmanager.h"
+#include "component.h"
+#include "object_manager.h"
 #include "command.h"
 #include "physics_component.h"
 #include "logger.h"
 
 #include <iostream>
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
 typedef int(__cdecl* f_game_main)();
 
 int main(int argc, char** argv) {
+  /*
   // TODO: Make a real CLI argument parser
   for (int i = 0; i < argc; ++i) {
     std::cout << argv[i] << std::endl;
@@ -59,5 +61,16 @@ int main(int argc, char** argv) {
     }
   }
 
+  return EXIT_SUCCESS;*/
+
+  std::shared_ptr<spectre::Object> obj = std::make_shared<spectre::Object>(spectre::Object());
+  obj->AddComponent<spectre::PhysicsComponent>(spectre::PhysicsComponent());
+  spectre::World::Instance().GetObjectManager().AddObject(obj);
+
+  spectre::SetPosition set_pos(obj->GetID(), 0, 0, 0);
+  spectre::GetPosition get_pos(obj->GetID());
+
+  spectre::World::Instance().GetObjectManager().ExecuteCommand(std::make_shared<spectre::SetPosition>(set_pos));
+  spectre::World::Instance().GetObjectManager().ExecuteCommand(std::make_shared<spectre::GetPosition>(get_pos));
   return EXIT_SUCCESS;
 }

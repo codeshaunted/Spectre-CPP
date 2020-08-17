@@ -24,12 +24,12 @@
 
 namespace spectre {
 
-class Command;
+class BaseCommand;
 
 class PhysicsComponent : public Component {
  public:
-  bool ExecuteCommand(std::shared_ptr<Command> command) override;
-  uint16_t component_id_ = ComponentID::kPhysics;
+  bool ExecuteCommand(std::shared_ptr<BaseCommand> command);
+  ComponentID component_id_ = ComponentID::kPhysics;
 };
 
 } // namespace spectre

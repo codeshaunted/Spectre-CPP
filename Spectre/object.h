@@ -22,29 +22,31 @@
 #include <memory>
 
 #include "component.h"
-#include "command.h"
 
 namespace spectre {
 
-class Command;
-class Component;
+class BaseCommand;
+
+typedef uint64_t ObjectID;
 
 class Object {
  public:
   Object();
   ~Object();
 
-  uint64_t GetID() { return id_; }
-  void SetID(uint64_t id) { id_ = id; }
+  ObjectID GetID() { return id_; }
+  void SetID(ObjectID id) { id_ = id; }
 
-  void AddComponent(Component component);
+  template <class T> void AddComponent(T component) {
+    components_.insert({ component.component_id_, std::make_shared<T>(component) });
+  }
 
-  bool ExecuteCommand(std::shared_ptr<Command> command);
-  bool ExecuteCommandOnComponents(std::shared_ptr<Command> command);
+  bool ExecuteCommand(std::shared_ptr<BaseCommand> command);
+  bool ExecuteCommandOnComponents(std::shared_ptr<BaseCommand> command);
 
  private:
-  uint64_t id_;
-  std::map<uint16_t, std::shared_ptr<Component>> components_;
+  ObjectID id_;
+  std::map<ComponentID, std::shared_ptr<Component>> components_;
 };
 
 } // namespace spectre

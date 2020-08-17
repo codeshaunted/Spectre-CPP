@@ -25,7 +25,7 @@ namespace spectre {
 
 class Logger {
  public:
-  enum Level {
+  enum class Level {
     kDebug,
     kInfo,
     kWarning,
@@ -39,12 +39,12 @@ class Logger {
 
  private:
   std::fstream file_stream_;
-  static const std::string logger_level_strings_[];
-  // TODO: make these not hardcoded?
-  std::string output_directory_ = "logs";
-  std::string latest_log_ = "latest";
-  std::string previous_log_ = "previous";
-  std::string file_extension_ = "log";
+  static const std::string kLoggerLevelStrings_[];
+  // TODO: make these not hardcoded? (load from cfg?)
+  const std::string kOutputDirectory_ = "logs";
+  const std::string kLatestLog_ = "latest";
+  const std::string kPreviousLog_ = "previous";
+  const std::string kFileExtension_ = "log";
 };
 
 } // namespace spectre
