@@ -31,6 +31,7 @@ class ObjectManager {
  public:
   ObjectManager();
 
+  void Update(float delta_time);
   void AddObject(std::shared_ptr<Object> object);
   void RemoveObject(ObjectID id);
   std::shared_ptr<Object> GetObject(ObjectID id);

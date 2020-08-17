@@ -24,6 +24,8 @@ class Logger;
 
 class World {
  public:
+  void WorldLoop();
+
   static World& Instance() {
     static std::shared_ptr<World> instance = std::make_shared<World>();
     return *instance;

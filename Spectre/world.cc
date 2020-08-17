@@ -1,4 +1,4 @@
-// transform_component.cc
+// world.cc
 // Copyright (C) 2020 Spectre Team
 //
 // This program is free software; you can redistribute it and/or
@@ -15,36 +15,33 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#include "transform_component.h"
-
-#include <iostream>
-
-#include "command.h"
-#include "logger.h"
 #include "world.h"
+
+#include <chrono>
+
+#include "logger.h"
 #include "object_manager.h"
+#include "transform_component.h"
 
 namespace spectre {
 
-  void TransformComponent::Update(float delta_time) {
-    //World::Instance().GetLogger().Log(Logger::Level::kInfo, "coming from transform component!");
-  }
+void World::WorldLoop() {
+	auto last_time = std::chrono::high_resolution_clock::now();
+	auto time = std::chrono::high_resolution_clock::now();
 
-  bool TransformComponent::ExecuteCommand(std::shared_ptr<BaseCommand> command) {
-  switch (command->command_id_) {
-    case CommandID::kSetPosition: {
-      World::Instance().GetLogger().Log(Logger::Level::kInfo, "SetPosition command called!");
-      break;
-    }
-    case CommandID::kGetPosition: {
-      World::Instance().GetLogger().Log(Logger::Level::kInfo, "GetPosition command called!");
-      break;
-    }
-    default: {
-      return false;
-    }
-  }
-  return true;
+	while (true) {
+		const auto current_time = std::chrono::high_resolution_clock::now();
+		float delta_time = std::chrono::duration<float>(current_time - last_time).count();
+		last_time = current_time;
+
+		/* test code
+		std::shared_ptr<Object> obj = std::make_shared<Object>(Object());
+		GetObjectManager().AddObject(obj);
+		std::shared_ptr<TransformComponent> transform_component = std::make_shared<TransformComponent>(TransformComponent());
+		obj->AddComponent<TransformComponent>(transform_component);*/
+
+		GetObjectManager().Update(delta_time);
+	}
 }
 
 } // namespace spectre
