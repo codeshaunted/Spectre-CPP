@@ -1,4 +1,4 @@
-// physics_component.h
+// transform_component.h
 // Copyright (C) 2020 Spectre Team
 //
 // This program is free software; you can redistribute it and/or
@@ -15,8 +15,8 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#ifndef PHYSICS_COMPONENT_H_
-#define PHYSICS_COMPONENT_H_
+#ifndef TRANSFORM_COMPONENT_H_
+#define TRANSFORM_COMPONENT_H_
 
 #include <memory>
 
@@ -26,7 +26,7 @@ namespace spectre {
 
 class BaseCommand;
 
-class PhysicsComponent : public Component {
+class TransformComponent : public Component {
  public:
   bool ExecuteCommand(std::shared_ptr<BaseCommand> command);
   ComponentID component_id_ = ComponentID::kPhysics;
@@ -34,4 +34,4 @@ class PhysicsComponent : public Component {
 
 } // namespace spectre
 
-#endif // PHYSICS_COMPONENT_H_
+#endif // TRANSFORM_COMPONENT_H_

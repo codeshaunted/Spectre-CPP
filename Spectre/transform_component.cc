@@ -1,4 +1,4 @@
-// physics_component.cc
+// transform_component.cc
 // Copyright (C) 2020 Spectre Team
 //
 // This program is free software; you can redistribute it and/or
@@ -15,7 +15,7 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#include "physics_component.h"
+#include "transform_component.h"
 
 #include <iostream>
 
@@ -26,7 +26,7 @@
 
 namespace spectre {
 
-bool PhysicsComponent::ExecuteCommand(std::shared_ptr<BaseCommand> command) { 
+bool TransformComponent::ExecuteCommand(std::shared_ptr<BaseCommand> command) { 
   switch (command->command_id_) {
     case CommandID::kSetPosition: {
       World::Instance().GetLogger().Log(Logger::Level::kInfo, "SetPosition command called!");

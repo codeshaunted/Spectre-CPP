@@ -25,7 +25,7 @@
     <ClCompile Include="main.cc" />
     <ClCompile Include="object.cc" />
     <ClCompile Include="object_manager.cc" />
-    <ClCompile Include="physics_component.cc" />
+    <ClCompile Include="transform_component.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="command.h" />
@@ -33,7 +33,7 @@
     <ClInclude Include="logger.h" />
     <ClInclude Include="object.h" />
     <ClInclude Include="object_manager.h" />
-    <ClInclude Include="physics_component.h" />
+    <ClInclude Include="transform_component.h" />
     <ClInclude Include="world.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

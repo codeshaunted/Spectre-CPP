@@ -20,7 +20,7 @@
 #include "component.h"
 #include "object_manager.h"
 #include "command.h"
-#include "physics_component.h"
+#include "transform_component.h"
 #include "logger.h"
 
 #include <iostream>
@@ -64,7 +64,7 @@ int main(int argc, char** argv) {
   return EXIT_SUCCESS;*/
 
   std::shared_ptr<spectre::Object> obj = std::make_shared<spectre::Object>(spectre::Object());
-  obj->AddComponent<spectre::PhysicsComponent>(spectre::PhysicsComponent());
+  obj->AddComponent<spectre::TransformComponent>(spectre::TransformComponent());
   spectre::World::Instance().GetObjectManager().AddObject(obj);
 
   spectre::SetPosition set_pos(obj->GetID(), 0, 0, 0);

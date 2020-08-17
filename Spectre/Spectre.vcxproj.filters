@@ -33,14 +33,14 @@
     <ClCompile Include="command.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="physics_component.cc">
-      <Filter>Source Files\Components</Filter>
-    </ClCompile>
     <ClCompile Include="logger.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="object_manager.cc">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="transform_component.cc">
+      <Filter>Source Files\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -56,14 +56,14 @@
     <ClInclude Include="command.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="physics_component.h">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
     <ClInclude Include="logger.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="object_manager.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="transform_component.h">
+      <Filter>Header Files\Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
