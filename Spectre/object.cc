@@ -32,9 +32,9 @@ Object::~Object() {
 
 void Object::Update(float delta_time) {
   for (auto component : components_) {
-    World::Instance().update_queue_.push_back(component.second);
+    //World::Instance().update_queue_.push_back(component.second);
     // TODO: Add option for non-multithreaded (GameVariables)
-    //component.second->Update(delta_time);
+    component.second->Update(delta_time);
   }
 }
 

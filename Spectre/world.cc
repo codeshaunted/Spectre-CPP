@@ -27,54 +27,53 @@
 namespace spectre {
 
 void World::WorldLoop() {
-	const auto logical_processor_count = std::thread::hardware_concurrency();
-	std::vector<std::thread> threads;
+	//const auto logical_processor_count = std::thread::hardware_concurrency();
+	//std::vector<std::thread> threads;
 	auto last_time = std::chrono::high_resolution_clock::now();
 	auto time = std::chrono::high_resolution_clock::now();
 
+	/*for (int i = 0; i < logical_processor_count; ++i) {
+		std::thread update_thread(&World::UpdateThread, this, i);
+		threads.push_back(std::move(update_thread));
+	}
+
+	for (int i = 0; i < logical_processor_count; ++i) {
+		component_stacks_.push_back(std::stack<std::shared_ptr<Component>>());
+	}
+
+	for (std::thread& thread : threads) {
+		thread.detach();
+	}*/
+
 	while (true) {
 		const auto current_time = std::chrono::high_resolution_clock::now();
-		float delta_time = std::chrono::duration<float>(current_time - last_time).count();
+		current_delta_time_ = std::chrono::duration<float>(current_time - last_time).count();
 		last_time = current_time;
 
-		std::vector<std::stack<std::shared_ptr<Component>>> component_stacks;
-
 		// TODO: make multi-threading optional
+		GetObjectManager().Update(current_delta_time_);
 
-		GetObjectManager().Update(delta_time);
+	//	// TODO: make a smarter load-balancer
+	//	int processor_iterator = 0;
+	//	for (int i = 0; i < update_queue_.size(); ++i) {
+	//		if (processor_iterator == logical_processor_count) processor_iterator = 0;
+	//		component_stacks_[processor_iterator].push(update_queue_[i]);
+	//		++processor_iterator;
+	//	}
 
-		for (int i = 0; i < logical_processor_count; ++i) {
-			component_stacks.push_back(std::stack<std::shared_ptr<Component>>());
-		}
+	//	update_queue_.clear();
 
-		// TODO: make a smarter load-balancer
-		int processor_iterator = 0;
-		for (int i = 0; i < update_queue_.size(); ++i) {
-			if (processor_iterator == logical_processor_count) processor_iterator = 0;
-			component_stacks[processor_iterator].push(update_queue_[i]);
-			++processor_iterator;
-		}
-
-		for (int i = 0; i < logical_processor_count; ++i) {
-			std::thread update_thread(&World::UpdateThread, this, component_stacks[i], delta_time);
-			threads.push_back(std::move(update_thread));
-		}
-
-
-		for (std::thread& thread : threads) {
-			thread.join();
-		}
-
-		threads.clear();
-
-		update_queue_.clear();
+	//	for (std::stack<std::shared_ptr<Component>> component_stack : component_stacks_) {
+	//		while (!component_stack.empty()); // wait for threads to finish to continue
+	//	}
 	}
 }
 
-void World::UpdateThread(std::stack<std::shared_ptr<Component>> components, float delta_time) {
-	while (!components.empty()) {
-		components.top()->Update(delta_time);
-		components.pop();
+void World::UpdateThread(int component_stack) {
+	while (true) {
+		if (component_stacks_[component_stack].empty()) continue;
+		component_stacks_[component_stack].top()->Update(current_delta_time_);
+		component_stacks_[component_stack].pop();
 	}
 }
 
