@@ -48,13 +48,13 @@ Logger::Logger() {
     file_stream_.close();
 
     // Write to previous log file
-    file_stream_.open(kOutputDirectory_ + "/" + kPreviousLog_ + "." + kFileExtension_, std::ios::out, std::ios::trunc);
+    file_stream_.open(kOutputDirectory_ + "/" + kPreviousLog_ + "." + kFileExtension_, std::ios::out | std::ios::trunc);
     file_stream_.write(kPreviousLog_data.c_str(), kPreviousLog_data.size());
     file_stream_.close();
   }
 
   // Open current log file
-  file_stream_.open(kOutputDirectory_ + "/" + kLatestLog_ + "." + kFileExtension_, std::ios::out, std::ios::trunc);
+  file_stream_.open(kOutputDirectory_ + "/" + kLatestLog_ + "." + kFileExtension_, std::ios::out | std::ios::trunc);
 }
 
 Logger::~Logger() {

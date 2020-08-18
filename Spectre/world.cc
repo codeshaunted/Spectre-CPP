@@ -18,14 +18,17 @@
 #include "world.h"
 
 #include <chrono>
+#include <vector>
+#include <thread>
+#include <algorithm>
 
-#include "logger.h"
-#include "object_manager.h"
 #include "transform_component.h"
 
 namespace spectre {
 
 void World::WorldLoop() {
+	const auto logical_processor_count = std::thread::hardware_concurrency();
+	std::vector<std::thread> threads;
 	auto last_time = std::chrono::high_resolution_clock::now();
 	auto time = std::chrono::high_resolution_clock::now();
 
@@ -34,13 +37,44 @@ void World::WorldLoop() {
 		float delta_time = std::chrono::duration<float>(current_time - last_time).count();
 		last_time = current_time;
 
-		/* test code
-		std::shared_ptr<Object> obj = std::make_shared<Object>(Object());
-		GetObjectManager().AddObject(obj);
-		std::shared_ptr<TransformComponent> transform_component = std::make_shared<TransformComponent>(TransformComponent());
-		obj->AddComponent<TransformComponent>(transform_component);*/
+		std::vector<std::stack<std::shared_ptr<Component>>> component_stacks;
+
+		// TODO: make multi-threading optional
 
 		GetObjectManager().Update(delta_time);
+
+		for (int i = 0; i < logical_processor_count; ++i) {
+			component_stacks.push_back(std::stack<std::shared_ptr<Component>>());
+		}
+
+		// TODO: make a smarter load-balancer
+		int processor_iterator = 0;
+		for (int i = 0; i < update_queue_.size(); ++i) {
+			if (processor_iterator == logical_processor_count) processor_iterator = 0;
+			component_stacks[processor_iterator].push(update_queue_[i]);
+			++processor_iterator;
+		}
+
+		for (int i = 0; i < logical_processor_count; ++i) {
+			std::thread update_thread(&World::UpdateThread, this, component_stacks[i], delta_time);
+			threads.push_back(std::move(update_thread));
+		}
+
+
+		for (std::thread& thread : threads) {
+			thread.join();
+		}
+
+		threads.clear();
+
+		update_queue_.clear();
+	}
+}
+
+void World::UpdateThread(std::stack<std::shared_ptr<Component>> components, float delta_time) {
+	while (!components.empty()) {
+		components.top()->Update(delta_time);
+		components.pop();
 	}
 }
 

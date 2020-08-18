@@ -16,15 +16,18 @@
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <memory>
+#include <functional>
+#include <stack>
+
+#include "object_manager.h"
+#include "logger.h"
 
 namespace spectre {
-
-class ObjectManager;
-class Logger;
 
 class World {
  public:
   void WorldLoop();
+  void UpdateThread(std::stack<std::shared_ptr<Component>> components, float delta_time);
 
   static World& Instance() {
     static std::shared_ptr<World> instance = std::make_shared<World>();
@@ -41,10 +44,18 @@ class World {
     return *logger_;
   }
 
+  /*GameVariables& GetGameVariables() {
+    if (game_variables_ == NULL) game_variables_ = std::make_shared<GameVariables>();
+    return *game_variables_;
+  }*/
+
+  std::vector<std::shared_ptr<Component>> update_queue_;
+
  private:
   static World instance_;
   std::shared_ptr<ObjectManager> object_manager_;
   std::shared_ptr<Logger> logger_;
+  //std::shared_ptr<GameVariables> game_variables_;
 };
 
 } // namespace spectre

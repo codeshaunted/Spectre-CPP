@@ -27,7 +27,7 @@
 namespace spectre {
 
   void TransformComponent::Update(float delta_time) {
-    //World::Instance().GetLogger().Log(Logger::Level::kInfo, "coming from transform component!");
+    World::Instance().GetLogger().Log(Logger::Level::kInfo, "coming from transform component");
   }
 
   bool TransformComponent::ExecuteCommand(std::shared_ptr<BaseCommand> command) {
