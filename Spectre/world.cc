@@ -47,6 +47,7 @@ void World::WorldLoop() {
 			component_stacks.push_back(std::stack<std::shared_ptr<Component>>());
 		}
 
+		// TODO: make a smarter load-balancer
 		int processor_iterator = 0;
 		for (int i = 0; i < update_queue_.size(); ++i) {
 			if (processor_iterator == logical_processor_count) processor_iterator = 0;
