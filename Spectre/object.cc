@@ -19,6 +19,7 @@
 
 #include "component.h"
 #include "command.h"
+#include "world.h"
 
 namespace spectre {
 
@@ -31,14 +32,11 @@ Object::~Object() {
 
 void Object::Update(float delta_time) {
   for (auto component : components_) {
-    component.second->Update(delta_time);
+    World::Instance().update_queue_.push_back(component.second);
+    // TODO: Add option for non-multithreaded (GameVariables)
+    //component.second->Update(delta_time);
   }
 }
-
-/*
-void Object::AddComponent(Component component) {
-  components_.insert({ component.component_id_, std::make_shared<Component>(component) });
-}*/
 
 bool Object::ExecuteCommand(std::shared_ptr<BaseCommand> command) {
   switch (command->command_id_) {

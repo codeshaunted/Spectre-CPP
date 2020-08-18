@@ -39,9 +39,8 @@ class Object {
   ObjectID GetID() { return id_; }
   void SetID(ObjectID id) { id_ = id; }
 
-  template <class T> void AddComponent(std::shared_ptr<T> component) {
-    components_.insert({ component->component_id_, component });
-  }
+  template <class T> 
+  void AddComponent(std::shared_ptr<T> component);
 
   bool ExecuteCommand(std::shared_ptr<BaseCommand> command);
   bool ExecuteCommandOnComponents(std::shared_ptr<BaseCommand> command);
@@ -50,6 +49,11 @@ class Object {
   ObjectID id_;
   std::map<ComponentID, std::shared_ptr<Component>> components_;
 };
+
+template<class T>
+inline void Object::AddComponent(std::shared_ptr<T> component) {
+  components_.insert({ component->component_id_, component });
+}
 
 } // namespace spectre
 
