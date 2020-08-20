@@ -4,7 +4,11 @@ project(Spectre C CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-message("-- Compiling Spectre")
+message("-- Began Spectre CMake")
+
+if(UNIX AND NOT APPLE)
+    set(LINUX TRUE)
+endif()
 
 if (NOT EXISTS output)
     file(MAKE_DIRECTORY output)

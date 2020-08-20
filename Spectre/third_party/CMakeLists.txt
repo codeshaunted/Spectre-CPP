@@ -1,12 +1,42 @@
+# Bullet Code
+set(BUILD_PYBULLET FALSE)
+set(BUILD_EXTRAS FALSE)
+
+if (LINUX)
+    if (EXISTS /usr/lib/x86_64-linux-gnu/libGL.so OR /usr/lib/x86_64-linux-gnu/libGLX.so OR /usr/lib/x86_64-linux-gnu/libOpenGL.so)
+        if (EXISTS /usr/lib/x86_64-linux-gnu/libGLX.so OR /usr/lib/x86_64-linux-gnu/libOpenGL.so)
+            set(OpenGL_GL_PREFERENCE GLVND)
+        else()
+            set(OpenGL_GL_PREFERENCE LEGACY)
+        endif()
+    else()
+        message(FATAL_ERROR "X11/XOrg isn't installed please install it")
+    endif()
+elseif(APPLE)
+    find_package(COCOA_LIBRARY Cocoa)
+    if (NOT COCOA_LIBRARY_FOUND)
+        message(FATAL_ERROR "Cocoa not found please install it")
+    endif()
+endif()
+
+message("-- Configured Bullet")
+
+add_subdirectory(bullet3)
+
+message("-- Generated Bullet CMake files")
+
+include_directories(${BULLET_PHYSICS_SOURCE_DIR}/src)
+
+# GLFW Code
+set(GLFW_BUILD_DOCS FALSE)
+
 add_subdirectory(glfw)
+
+# Wren Code
 
 include_directories(wren/src/vm)
 include_directories(wren/src/optional)
 include_directories(wren/src/include)
-
-if (NOT EXISTS output)
-    file(MAKE_DIRECTORY output)
-endif()
 
 add_library(wren_lib SHARED
         wren/src/vm/wren_common.h
@@ -30,4 +60,7 @@ add_library(wren_lib SHARED
         wren/src/optional/wren_opt_random.c
         wren/src/optional/wren_opt_random.h
         )
+
 set_target_properties(wren_lib PROPERTIES LINKER_LANGUAGE C)
+
+message("-- Generated Wren CMake Files")
