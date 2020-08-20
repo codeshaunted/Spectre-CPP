@@ -4,6 +4,9 @@ include_directories(wren/src/vm)
 include_directories(wren/src/optional)
 include_directories(wren/src/include)
 
+if (NOT EXISTS output)
+    file(MAKE_DIRECTORY output)
+endif()
 
 add_library(wren_lib SHARED
         wren/src/vm/wren_common.h
