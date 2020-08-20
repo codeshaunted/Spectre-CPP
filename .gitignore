@@ -21,3 +21,4 @@ cmake-build-debug/
 enc_temp_folder/
 out/
 **/CMakeScripts
+output/

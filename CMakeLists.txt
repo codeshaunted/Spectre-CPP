@@ -6,24 +6,32 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 message("-- Compiling Spectre")
 
-include_directories(source)
-add_subdirectory(third_party)
+if (NOT EXISTS output)
+    file(MAKE_DIRECTORY output)
+endif()
 
-add_executable(Spectre source/main.cc
-        source/command.cc
-        source/command.h
-        source/component.cc
-        source/component.h
-        source/logger.cc
-        source/logger.h
-        source/object.cc
-        source/object.h
-        source/object_manager.cc
-        source/object_manager.h
-        source/transform_component.cc
-        source/transform_component.h
-        source/world.h
-        source/world.cc
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/output)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/output)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/output)
+
+include_directories(Spectre/source)
+add_subdirectory(Spectre/third_party)
+
+add_executable(Spectre Spectre/source/main.cc
+        Spectre/source/command.cc
+        Spectre/source/command.h
+        Spectre/source/component.cc
+        Spectre/source/component.h
+        Spectre/source/logger.cc
+        Spectre/source/logger.h
+        Spectre/source/object.cc
+        Spectre/source/object.h
+        Spectre/source/object_manager.cc
+        Spectre/source/object_manager.h
+        Spectre/source/transform_component.cc
+        Spectre/source/transform_component.h
+        Spectre/source/world.h
+        Spectre/source/world.cc
         )
 set_target_properties(Spectre PROPERTIES LINKER_LANGUAGE CXX)
 
