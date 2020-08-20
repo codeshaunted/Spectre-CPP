@@ -61,10 +61,10 @@ Logger::~Logger() {
   if (file_stream_.is_open()) file_stream_.close();
 }
 
-void Logger::Log(Level level, std::string message) {
+void Logger::Log(Level level, const std::string& message) {
   auto current_time = std::chrono::system_clock::now();
   time_t time = std::chrono::system_clock::to_time_t(current_time);
-  struct tm local_time;
+  struct tm local_time{};
 
   #ifdef __unix__
       localtime_r(&time, &local_time);

@@ -35,7 +35,7 @@ class Logger {
   Logger();
   ~Logger();
 
-  void Log(Level level, std::string message);
+  void Log(Level level, const std::string& message);
 
  private:
   std::fstream file_stream_;

@@ -19,8 +19,16 @@
 #define TRANSFORM_COMPONENT_H_
 
 #include <memory>
+#include <memory>
+#include <iostream>
 
+#include "command.h"
+#include "logger.h"
+#include "world.h"
 #include "component.h"
+
+#include "../third_party/bullet3/src/btBulletDynamicsCommon.h"
+#include "../third_party/bullet3/src/Bullet3Serialize/Bullet2FileLoader/b3BulletFile.h"
 
 namespace spectre {
 
@@ -30,7 +38,15 @@ class TransformComponent : public Component {
  public:
   void Update(float delta_time);
   bool ExecuteCommand(std::shared_ptr<BaseCommand> command);
+  void Start();
+  void UpdatePhysics();
   ComponentID component_id_ = ComponentID::kPhysics;
+  std::shared_ptr<btRigidBody> rigid_body = nullptr;
+  std::shared_ptr<btCollisionShape> collision_shape = nullptr;
+  btVector3 pos = btVector3();
+  btQuaternion rot = btQuaternion();
+  btScalar mass = btScalar(0.0f); // TODO: Look into Mass and Inertia for the motion states
+  btVector3 inertia = btVector3(0, 0, 0);
 };
 
 } // namespace spectre

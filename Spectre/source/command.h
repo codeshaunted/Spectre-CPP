@@ -30,7 +30,8 @@ namespace spectre {
 
 enum class CommandID {
   kSetPosition,
-  kGetPosition
+  kGetPosition,
+  kSetRotation
 };
 
 class BaseCommand {
@@ -41,7 +42,6 @@ class BaseCommand {
   CommandID command_id_;
 };
 
-// TODO: implement Vector3 and Quaternion
 class BasePositionCommand : public BaseCommand {
  protected:
   BasePositionCommand(ObjectID target_id, CommandID command_id, float x = 0.0f, float y = 0.0f, float z = 0.0f) : BaseCommand(target_id, command_id), x_(x), y_(y), z_(z) {};
@@ -49,6 +49,21 @@ class BasePositionCommand : public BaseCommand {
   float x_;
   float y_;
   float z_;
+};
+
+class BaseRotationCommand : public BaseCommand {
+  protected:
+    BaseRotationCommand(ObjectID target_id, CommandID command_id, float x = 0.0f, float y = 0.0f, float z = 0.0f, float w = 0.0f) : BaseCommand(target_id, command_id), x_(x), y_(y), z_(z), w_(w) {};
+  public:
+    float x_;
+    float y_;
+    float z_;
+    float w_;
+};
+
+class SetRotation : public BaseRotationCommand {
+  public:
+    SetRotation(ObjectID target_id, float x, float y, float z, float w) : BaseRotationCommand(target_id, CommandID::kSetRotation, x, y, z, w) {};
 };
 
 class SetPosition : public BasePositionCommand {

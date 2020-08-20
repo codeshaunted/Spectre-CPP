@@ -36,7 +36,7 @@ class Object {
 
   void Update(float delta_time);
 
-  ObjectID GetID() { return id_; }
+  ObjectID GetID() const { return id_; }
   void SetID(ObjectID id) { id_ = id; }
 
   template <class T> 

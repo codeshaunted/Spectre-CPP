@@ -1,6 +1,6 @@
 # Bullet Code
 set(BUILD_PYBULLET FALSE)
-set(BUILD_EXTRAS FALSE)
+set(BUILD_EXTRAS TRUE)
 
 if (LINUX)
     if (EXISTS /usr/lib/x86_64-linux-gnu/libGL.so OR /usr/lib/x86_64-linux-gnu/libGLX.so OR /usr/lib/x86_64-linux-gnu/libOpenGL.so)
@@ -24,8 +24,6 @@ message("-- Configured Bullet")
 add_subdirectory(bullet3)
 
 message("-- Generated Bullet CMake files")
-
-include_directories(${BULLET_PHYSICS_SOURCE_DIR}/src)
 
 # GLFW Code
 set(GLFW_BUILD_DOCS FALSE)
