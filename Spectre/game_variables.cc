@@ -1,4 +1,4 @@
-// game_variables.h
+// game_variables.cc
 // Copyright (C) 2020 Spectre Team
 //
 // This program is free software; you can redistribute it and/or
@@ -15,24 +15,18 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#ifndef GAME_VARIABLES_H_
-#define GAME_VARIABLES_H_
+#include "game_variables.h"
 
-#include <any>
-#include <map>
-#include <string>
 #include <memory>
 
 namespace spectre {
 
-class GameVariables {
- public: // TODO: maybe stop using std::any here at some point
-  std::any GetVariable(std::string name);
-  void SetVariable(std::string name, std::any value);
- private:
-   std::map < std::string, std::any> variables_;
-};
+std::any GameVariables::GetVariable(std::string name) {
+  return variables_[name];
+}
+
+void GameVariables::SetVariable(std::string name, std::any variable) {
+  variables_[name] = variable;
+}
 
 } // namespace spectre
-
-#endif // GAME_VARIABLES_H_

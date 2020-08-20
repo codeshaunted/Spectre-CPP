@@ -45,6 +45,9 @@
     <ClCompile Include="world.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="game_variables.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="component.h">
@@ -67,6 +70,9 @@
     </ClInclude>
     <ClInclude Include="transform_component.h">
       <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="game_variables.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

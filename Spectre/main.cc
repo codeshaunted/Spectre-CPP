@@ -22,6 +22,7 @@
 #include "command.h"
 #include "transform_component.h"
 #include "logger.h"
+#include "game_variables.h"
 
 #ifdef _WIN32
 #include <windows.h>
@@ -73,6 +74,13 @@ int main(int argc, char** argv) {
   spectre::World::Instance().GetObjectManager().ExecuteCommand(std::make_shared<spectre::GetPosition>(get_pos));
   return EXIT_SUCCESS;
   */
+
+  /*
+  spectre::World::Instance().GetGameVariables().SetVariable("test", std::string("test"));
+
+  std::string test = std::any_cast<std::string>(spectre::World::Instance().GetGameVariables().GetVariable("test"));
+
+  spectre::World::Instance().GetLogger().Log(spectre::Logger::Level::kInfo, test);*/
 
   spectre::World::Instance().WorldLoop();
 

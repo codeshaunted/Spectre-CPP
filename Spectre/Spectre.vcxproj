@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="command.cc" />
     <ClCompile Include="component.cc" />
+    <ClCompile Include="game_variables.cc" />
     <ClCompile Include="logger.cc" />
     <ClCompile Include="main.cc" />
     <ClCompile Include="object.cc" />
@@ -31,6 +32,7 @@
   <ItemGroup>
     <ClInclude Include="command.h" />
     <ClInclude Include="component.h" />
+    <ClInclude Include="game_variables.h" />
     <ClInclude Include="logger.h" />
     <ClInclude Include="object.h" />
     <ClInclude Include="object_manager.h" />

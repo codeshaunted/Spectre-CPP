@@ -21,6 +21,7 @@
 
 #include "object_manager.h"
 #include "logger.h"
+#include "game_variables.h"
 
 namespace spectre {
 
@@ -46,17 +47,15 @@ class World {
     return *logger_;
   }
 
-  /*GameVariables& GetGameVariables() {
+  GameVariables& GetGameVariables() {
     if (game_variables_ == NULL) game_variables_ = std::make_shared<GameVariables>();
     return *game_variables_;
-  }*/
-
-  std::vector<std::shared_ptr<Component>> update_queue_;
+  }
 
  private:
   std::shared_ptr<ObjectManager> object_manager_;
   std::shared_ptr<Logger> logger_;
-  //std::shared_ptr<GameVariables> game_variables_;
+  std::shared_ptr<GameVariables> game_variables_;
   std::vector<std::stack<std::shared_ptr<Component>>> component_stacks_;
   float current_delta_time_ = 0.0f;
 };
