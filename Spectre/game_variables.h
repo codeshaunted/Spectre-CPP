@@ -29,6 +29,7 @@ class GameVariables {
  public: // TODO: maybe stop using std::any here at some point
   std::any GetVariable(std::string name);
   void SetVariable(std::string name, std::any value);
+  bool VariableExists(std::string name);
  private:
    std::map < std::string, std::any> variables_;
 };

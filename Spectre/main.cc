@@ -75,10 +75,13 @@ int main(int argc, char** argv) {
   return EXIT_SUCCESS;
   */
 
-  /*
-  spectre::World::Instance().GetGameVariables().SetVariable("test", std::string("test"));
+  /*spectre::World::Instance().GetGameVariables().SetVariable("test", std::string("test"));
+  
+  std::string test = "";
 
-  std::string test = std::any_cast<std::string>(spectre::World::Instance().GetGameVariables().GetVariable("test"));
+  if (spectre::World::Instance().GetGameVariables().VariableExists("test")) {
+    test = std::any_cast<std::string>(spectre::World::Instance().GetGameVariables().GetVariable("test"));
+  }
 
   spectre::World::Instance().GetLogger().Log(spectre::Logger::Level::kInfo, test);*/
 

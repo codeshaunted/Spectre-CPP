@@ -29,4 +29,8 @@ void GameVariables::SetVariable(std::string name, std::any variable) {
   variables_[name] = variable;
 }
 
+bool GameVariables::VariableExists(std::string name) {
+  return variables_.find(name) != variables_.end();
+}
+
 } // namespace spectre
