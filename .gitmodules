@@ -2,3 +2,7 @@
 	path = Spectre/third_party/glfw
 	url = https://github.com/glfw/glfw
 	branch = master
+[submodule "Spectre/third_party/wren"]
+	path = Spectre/third_party/wren
+	url = https://github.com/wren-lang/wren
+	branch = master
