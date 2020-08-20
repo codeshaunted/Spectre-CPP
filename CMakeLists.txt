@@ -1,27 +1,30 @@
 cmake_minimum_required(VERSION 3.8)
-project("Spectre")
+project(Spectre C CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-include_directories(Spectre)
-include_directories(Spectre/third_party/wren/src/include)
+message("-- Compiling Spectre")
 
-add_executable(Spectre Spectre/main.cc
-        Spectre/command.cc
-        Spectre/command.h
-        Spectre/component.cc
-        Spectre/component.h
-        Spectre/logger.cc
-        Spectre/logger.h
-        Spectre/object.cc
-        Spectre/object.h
-        Spectre/object_manager.cc
-        Spectre/object_manager.h
-        Spectre/transform_component.cc
-        Spectre/transform_component.h
-        Spectre/world.h
+include_directories(source)
+add_subdirectory(third_party)
+
+add_executable(Spectre source/main.cc
+        source/command.cc
+        source/command.h
+        source/component.cc
+        source/component.h
+        source/logger.cc
+        source/logger.h
+        source/object.cc
+        source/object.h
+        source/object_manager.cc
+        source/object_manager.h
+        source/transform_component.cc
+        source/transform_component.h
+        source/world.h
+        source/world.cc
         )
+set_target_properties(Spectre PROPERTIES LINKER_LANGUAGE CXX)
 
-LINK_DIRECTORIES(Spectre/third_party/wren/lib)
-target_link_libraries(Spectre libwren) 
+target_link_libraries(Spectre wren_lib glfw)

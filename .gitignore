@@ -1,15 +1,23 @@
-
+# Visual Studio
 Debug/
 Build/
-.vs/Spectre/v16/
-.vscode
+.vs/
+.vscode/
 
-#don't include third party files, but leave the dirs:
-Spectre/third_party/wren/lib/*
-Spectre/third_party/wren/lib/!readme.txt
-Spectre/third_party/wren/src/include/*
-Spectre/third_party/wren/src/include/!readme.txt
+# IntelliJ Idea IDEs
+.idea/
 
-*.o
+# Log Files
+source/logs/
 
-Spectre/logs/
+# CMake
+CMakeLists.txt.user
+CMakeCache.txt
+**/CMakeFiles
+**/Makefile
+**/cmake_install.cmake
+**/*.a
+cmake-build-debug/
+enc_temp_folder/
+out/
+**/CMakeScripts

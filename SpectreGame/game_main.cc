@@ -1,5 +1,5 @@
 // game_main.cc
-// Copyright (C) 2020 Spectre Team
+// Copyright (C) 2020 source Team
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -17,8 +17,10 @@
 
 #include <iostream>
 
+#ifdef _WIN32
 extern "C" int __declspec(dllexport) game_main() {
   std::cout << "coming at ya from the game dll" << std::endl;
   //spectre::World::Instance().GetLogger().Log(spectre::Logger::kInfo, "coming at ya from the game dll");
   return 1;
 }
+#endif
