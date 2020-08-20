@@ -26,9 +26,9 @@
 
 #ifdef _WIN32
 #include <windows.h>
-#endif
 
 typedef int(__cdecl* f_game_main)();
+#endif
 
 int main(int argc, char** argv) {
   /*
@@ -76,7 +76,7 @@ int main(int argc, char** argv) {
   */
 
   /*spectre::World::Instance().GetGameVariables().SetVariable("test", std::string("test"));
-  
+
   std::string test = "";
 
   if (spectre::World::Instance().GetGameVariables().VariableExists("test")) {

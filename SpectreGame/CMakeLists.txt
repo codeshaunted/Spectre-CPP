@@ -1,0 +1,2 @@
+add_library(SpectreGame SHARED game_main.cc)
+set_target_properties(SpectreGame PROPERTIES LINKER_LANGUAGE CXX)
