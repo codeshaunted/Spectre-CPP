@@ -23,12 +23,11 @@ namespace spectre {
     collision_shape = std::shared_ptr<btCollisionShape>(new btSphereShape(5));
     btTransform Transform;
     Transform.setIdentity();
-    Transform.setOrigin(pos);
-    Transform.setRotation(rot);
+    Transform.setOrigin(pos.GetbtVector3());
+    Transform.setRotation(rot.GetbtQuaternion());
     std::shared_ptr<btDefaultMotionState> motion(new btDefaultMotionState(Transform));
     collision_shape->calculateLocalInertia(mass, inertia);
     btRigidBody::btRigidBodyConstructionInfo rigid_body_info(mass, motion.get(), collision_shape.get(), inertia);
-
     rigid_body = std::make_shared<btRigidBody>(rigid_body_info);
   }
 
@@ -37,13 +36,13 @@ namespace spectre {
   }
 
   void TransformComponent::UpdatePhysics() {
-      if (rigid_body != nullptr) {
+      if (this->rigid_body != nullptr) {
           btTransform Transform;
           Transform.setIdentity();
-          Transform.setOrigin(pos);
-          Transform.setRotation(rot);
-          rigid_body->setWorldTransform(Transform);
-          rigid_body->getMotionState()->setWorldTransform(Transform);
+          Transform.setOrigin(pos.GetbtVector3());
+          Transform.setRotation(rot.GetbtQuaternion());
+          this->rigid_body->setWorldTransform(Transform);
+          this->rigid_body->getMotionState()->setWorldTransform(Transform);
       }
   }
 
@@ -52,7 +51,7 @@ namespace spectre {
     case CommandID::kSetPosition: {
       World::Instance().GetLogger().Log(Logger::Level::kInfo, "SetPosition command called!");
       std::shared_ptr<SetPosition> position_command = std::static_pointer_cast<SetPosition>(command);
-      this->pos = btVector3(btScalar(position_command->x_), btScalar(position_command->y_), btScalar(position_command->z_));
+      this->pos = Vector3(btScalar(position_command->x_), btScalar(position_command->y_), btScalar(position_command->z_));
       this->UpdatePhysics();
       break;
     }
@@ -62,7 +61,7 @@ namespace spectre {
     }
     case CommandID::kSetRotation: {
         std::shared_ptr<SetRotation> rot_set_command = std::static_pointer_cast<SetRotation>(command);
-        this->rot = btQuaternion(btScalar(rot_set_command->x_), btScalar(rot_set_command->y_), btScalar(rot_set_command->z_), btScalar(rot_set_command->w_));
+        this->rot = Quaternion(btScalar(rot_set_command->x_), btScalar(rot_set_command->y_), btScalar(rot_set_command->z_), btScalar(rot_set_command->w_));
         this->UpdatePhysics();
         break;
     }

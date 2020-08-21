@@ -84,8 +84,6 @@ int main(int argc, char** argv) {
 
   spectre::World::Instance().GetLogger().Log(spectre::Logger::Level::kInfo, test);*/
 
-  // epic comment
-
   spectre::World::Instance().WorldLoop();
 
   return EXIT_SUCCESS;
