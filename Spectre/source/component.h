@@ -22,19 +22,22 @@
 
 namespace spectre {
 
+class Object;
 class BaseCommand;
 
 enum class ComponentID : uint16_t {
   kNullComponent,
   kPhysics,
+  kTransform
 };
 
 class Component {
  public:
   virtual void Update(float delta_time);
-  virtual bool ExecuteCommand(std::shared_ptr<BaseCommand> command) { return false; }
+  virtual bool ExecuteCommand(std::shared_ptr<BaseCommand> command, std::shared_ptr<spectre::Object> caller) { return false; }
   ComponentID component_id_ = ComponentID::kNullComponent;
 };
+
 
 } // namespace spectre
 

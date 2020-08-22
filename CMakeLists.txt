@@ -37,7 +37,12 @@ add_executable(Spectre Spectre/source/main.cc
         Spectre/source/transform_component.cc
         Spectre/source/transform_component.h
         Spectre/source/world.h
-        Spectre/source/world.cc Spectre/source/internal_types.cc Spectre/source/internal_types.h)
+        Spectre/source/world.cc
+        Spectre/source/internal_types.cc
+        Spectre/source/internal_types.h
+        Spectre/source/physics_component.cc
+        Spectre/source/physics_component.h)
+
 set_target_properties(Spectre PROPERTIES LINKER_LANGUAGE CXX)
 
 target_link_libraries(Spectre

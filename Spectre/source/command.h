@@ -23,6 +23,7 @@
 #include <map>
 
 #include "object.h"
+#include "internal_types.h"
 
 // maybe toss this into a spectre::command namespace?
 
@@ -31,7 +32,9 @@ namespace spectre {
 enum class CommandID {
   kSetPosition,
   kGetPosition,
-  kSetRotation
+  kSetRotation,
+  kGetRotation,
+  kUpdatePhysics
 };
 
 class BaseCommand {
@@ -61,9 +64,12 @@ class BaseRotationCommand : public BaseCommand {
     float w_;
 };
 
-class SetRotation : public BaseRotationCommand {
-  public:
-    SetRotation(ObjectID target_id, float x, float y, float z, float w) : BaseRotationCommand(target_id, CommandID::kSetRotation, x, y, z, w) {};
+class BasePhysicsUpdate : public BaseCommand {
+protected:
+  BasePhysicsUpdate(ObjectID target_id, CommandID command_id, Vector3 vector, Quaternion quaternion) : BaseCommand(target_id, command_id), vector_(vector), quaternion_(quaternion) {};
+public:
+  Vector3 vector_;
+  Quaternion quaternion_;
 };
 
 class SetPosition : public BasePositionCommand {
@@ -71,10 +77,25 @@ class SetPosition : public BasePositionCommand {
   SetPosition(ObjectID target_id, float x, float y, float z) : BasePositionCommand(target_id, CommandID::kSetPosition, x, y, z) {};
 };
 
-
 class GetPosition : public BasePositionCommand {
  public:
-  GetPosition(ObjectID target_id) : BasePositionCommand(target_id, CommandID::kGetPosition) {};
+  GetPosition(ObjectID target_id, float x, float y, float z) : BasePositionCommand(target_id, CommandID::kGetPosition, x, y, z) {};
+};
+
+
+class SetRotation : public BaseRotationCommand {
+public:
+  SetRotation(ObjectID target_id, float x, float y, float z, float w) : BaseRotationCommand(target_id, CommandID::kSetRotation, x, y, z, w) {};
+};
+
+class GetRotation : public BaseRotationCommand {
+public:
+  GetRotation(ObjectID target_id, float x, float y, float z, float w) : BaseRotationCommand(target_id, CommandID::kGetRotation, x, y, z, w) {};
+};
+
+class UpdatePhysics : public BasePhysicsUpdate {
+public:
+  UpdatePhysics(ObjectID target_id, Vector3 vector, Quaternion quaternion) : BasePhysicsUpdate(target_id, CommandID::kUpdatePhysics, vector, quaternion) {};
 };
 
 } // namespace spectre

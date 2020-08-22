@@ -36,7 +36,7 @@ include_directories(wren/src/vm)
 include_directories(wren/src/optional)
 include_directories(wren/src/include)
 
-add_library(wren_lib SHARED
+add_library(wren_lib STATIC
         wren/src/vm/wren_common.h
         wren/src/vm/wren_compiler.c
         wren/src/vm/wren_compiler.h

@@ -42,8 +42,8 @@ class Object {
   template <class T> 
   void AddComponent(std::shared_ptr<T> component);
 
-  bool ExecuteCommand(std::shared_ptr<BaseCommand> command);
-  bool ExecuteCommandOnComponents(std::shared_ptr<BaseCommand> command);
+  bool ExecuteCommand(const std::shared_ptr<BaseCommand>& command);
+  bool ExecuteCommandOnComponents(const std::shared_ptr<BaseCommand>& command);
 
  private:
   ObjectID id_;

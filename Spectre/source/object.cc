@@ -27,18 +27,17 @@ Object::Object() {
   id_ = 0; // Object IDs start at 1, ensuring this default value will never occur in an ObjectManager
 }
 
-Object::~Object() {
-}
+Object::~Object() = default;
 
 void Object::Update(float delta_time) {
-  for (auto component : components_) {
+  for (const auto& component : components_) {
     //World::Instance().update_queue_.push_back(component.second);
     // TODO: Add option for non-multithreaded (GameVariables)
     component.second->Update(delta_time);
   }
 }
 
-bool Object::ExecuteCommand(std::shared_ptr<BaseCommand> command) {
+bool Object::ExecuteCommand(const std::shared_ptr<BaseCommand>& command) {
   switch (command->command_id_) {
     default: {
       return ExecuteCommandOnComponents(command);
@@ -46,12 +45,12 @@ bool Object::ExecuteCommand(std::shared_ptr<BaseCommand> command) {
   }
 }
 
-bool Object::ExecuteCommandOnComponents(std::shared_ptr<BaseCommand> command)
+bool Object::ExecuteCommandOnComponents(const std::shared_ptr<BaseCommand>& command)
 {
   bool command_handled = false;
 
-  for (auto component : components_) {
-    command_handled |= component.second->ExecuteCommand(command);
+  for (const auto& component : components_) {
+    command_handled |= component.second->ExecuteCommand(command, std::shared_ptr<Object>(this));
   }
 
   return command_handled;

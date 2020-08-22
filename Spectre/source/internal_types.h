@@ -24,7 +24,7 @@
 namespace spectre {
   class Vector3 {
   public:
-    btScalar x = 0.0f;
+    btScalar x = 0.0f; // Replace these with Floats when removing bullet
     btScalar y = 0.0f;
     btScalar z = 0.0f;
 

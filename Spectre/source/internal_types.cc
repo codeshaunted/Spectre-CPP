@@ -32,7 +32,7 @@ namespace spectre {
   Vector3::Vector3(float array[3]) : x(array[0]), y(array[1]), z(array[2]) {}
   Quaternion::Quaternion(float array[4]) : x(array[0]), y(array[1]), z(array[2]), w(array[3]) {}
 
-
+  // Remove the following 5 lines when removing Bullet
   Vector3::Vector3(btVector3 btValue) : x(btValue.getX()), y(btValue.getY()), z(btValue.getZ()) {}
   Quaternion::Quaternion(btQuaternion btValue) : x(btValue.getX()), y(btValue.getY()), z(btValue.getZ()), w(btValue.getW()) {}
 

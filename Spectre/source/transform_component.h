@@ -38,16 +38,11 @@ class BaseCommand;
 class TransformComponent : public Component {
  public:
   void Update(float delta_time);
-  bool ExecuteCommand(std::shared_ptr<BaseCommand> command);
+  bool ExecuteCommand(std::shared_ptr<BaseCommand> command, std::shared_ptr<Object> caller);
   void Start();
-  void UpdatePhysics();
-  ComponentID component_id_ = ComponentID::kPhysics;
-  std::shared_ptr<btRigidBody> rigid_body = nullptr;
-  std::shared_ptr<btCollisionShape> collision_shape = nullptr;
+  ComponentID component_id_ = ComponentID::kTransform;
   Vector3 pos = Vector3();
   Quaternion rot = Quaternion();
-  btScalar mass = btScalar(0.0f); // TODO: Look into Mass and Inertia for the motion states
-  btVector3 inertia = btVector3(0, 0, 0);
 };
 
 } // namespace spectre
