@@ -46,6 +46,7 @@ namespace spectre {
     case CommandID::kSetRotation: {
         std::shared_ptr<SetRotation> rot_set_command = std::static_pointer_cast<SetRotation>(command);
         this->rot = Quaternion(rot_set_command->x_, rot_set_command->y_, rot_set_command->z_, rot_set_command->w_);
+        caller->ExecuteCommand(std::make_shared<UpdatePhysics>(caller->GetID(), this->pos, this->rot));
         break;
     }
     case CommandID::kGetRotation: {
