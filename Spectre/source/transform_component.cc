@@ -27,17 +27,17 @@
 namespace spectre {
 
   void TransformComponent::Update(float delta_time) {
-    World::Instance().GetLogger().Log(Logger::Level::kInfo, "coming from transform component");
+    World::Instance().GetLogger().Log(Logger::LogLogLevel::kInfo, "coming from transform component");
   }
 
   bool TransformComponent::ExecuteCommand(std::shared_ptr<BaseCommand> command) {
   switch (command->command_id_) {
     case CommandID::kSetPosition: {
-      World::Instance().GetLogger().Log(Logger::Level::kInfo, "SetPosition command called!");
+      World::Instance().GetLogger().Log(Logger::LogLevel::kInfo, "SetPosition command called!");
       break;
     }
     case CommandID::kGetPosition: {
-      World::Instance().GetLogger().Log(Logger::Level::kInfo, "GetPosition command called!");
+      World::Instance().GetLogger().Log(Logger::LogLevel::kInfo, "GetPosition command called!");
       break;
     }
     default: {

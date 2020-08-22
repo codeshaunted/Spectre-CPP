@@ -30,7 +30,8 @@ const std::string Logger::kLoggerLevelStrings_[] = {
   "DEBUG",
   "INFO",
   "WARNING",
-  "ERROR"
+  "ERROR",
+  "SCRIPT"
 };
 
 Logger::Logger() {
@@ -61,7 +62,7 @@ Logger::~Logger() {
   if (file_stream_.is_open()) file_stream_.close();
 }
 
-void Logger::Log(Level level, std::string message) {
+void Logger::Log(LogLevel level, std::string message) {
   auto current_time = std::chrono::system_clock::now();
   time_t time = std::chrono::system_clock::to_time_t(current_time);
   struct tm local_time;
@@ -71,7 +72,8 @@ void Logger::Log(Level level, std::string message) {
   #elif _WIN32
       localtime_s(&local_time, &time);
   #else
-      local_time = *localtime(&time); // this is BAD because localtime is NOT threadsafe, hence the preprocessor directive for the win32/*nix alternatives
+      local_time = *localtime(&time); // this is BAD because localtime is NOT threadsafe, hence the preprocessor 
+                                      //directive for the win32/*nix alternatives
   #endif
 
   char time_string [70];

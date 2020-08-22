@@ -28,6 +28,7 @@ class BaseCommand;
 
 class TransformComponent : public Component {
  public:
+  void Start() {};
   void Update(float delta_time);
   bool ExecuteCommand(std::shared_ptr<BaseCommand> command);
   ComponentID component_id_ = ComponentID::kPhysics;

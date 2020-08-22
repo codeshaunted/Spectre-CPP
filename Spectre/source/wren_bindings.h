@@ -1,4 +1,4 @@
-// component.h
+// wren_bindings.h
 // Copyright (C) 2020 Spectre Team
 //
 // This program is free software; you can redistribute it and/or
@@ -15,29 +15,29 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#ifndef COMPONENT_H_
-#define COMPONENT_H_
+#ifndef WREN_BINDINGS_H_
+#define WREN_BINDINGS_H_
 
-#include <memory>
+#include "wren.hpp"
+#include <string>
 
 namespace spectre {
 
-class BaseCommand;
-
-enum class ComponentID : uint16_t {
-  kNullComponent,
-  kPhysics,
-  kScript
-};
-
-class Component {
+//static
+class WrenBindings {
  public:
-  virtual void Start();
-  virtual void Update(float delta_time);
-  virtual bool ExecuteCommand(std::shared_ptr<BaseCommand> command) { return false; }
-  ComponentID component_id_ = ComponentID::kNullComponent;
+  static void WrenPrint(WrenVM* vm, const char* text);
+  static void WrenError(WrenVM* vm, WrenErrorType errorType, const char* module,
+                        const int line, const char* msg);
+  static char* WrenLoadModule(WrenVM* vm, const char* name);
+ private:
+  // Constructor is private so this is like a static class as exist in languages 
+  // like java and C#
+  WrenBindings();
+  static const std::string kScriptDirectory_;
+  static const std::string kFileExtension_;
 };
 
-} // namespace spectre
+}
 
-#endif // COMPONENT_H_
+#endif //WREN_BINDINGS_H_
