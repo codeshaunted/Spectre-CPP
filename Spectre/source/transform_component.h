@@ -37,7 +37,6 @@ class BaseCommand;
 
 class TransformComponent : public Component {
  public:
-  TransformComponent();
   void Update(float delta_time);
   bool ExecuteCommand(std::shared_ptr<BaseCommand> command);
   void Start();
