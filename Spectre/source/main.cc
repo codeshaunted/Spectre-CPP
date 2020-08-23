@@ -15,7 +15,6 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#include "world.h"
 #include "object.h"
 #include "component.h"
 #include "object_manager.h"
@@ -85,8 +84,6 @@ int main(int argc, char** argv) {
 
   spectre::World::Instance().GetLogger().Log(spectre::Logger::Level::kInfo, test);*/
 
-
-
   /*Wren example:
   test_import.wren:
     import "other_script"
@@ -100,7 +97,7 @@ int main(int argc, char** argv) {
   );
   spectre::World::Instance().GetObjectManager().addOjbect(obj);
   */
- 
+  
   spectre::World::Instance().WorldLoop();
 
   return EXIT_SUCCESS;

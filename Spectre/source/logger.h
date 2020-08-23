@@ -35,7 +35,7 @@ class Logger {
 
   Logger();
   ~Logger();
-
+  
   void Log(LogLevel level, std::string message);
 
  private:

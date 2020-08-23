@@ -19,8 +19,17 @@
 #define TRANSFORM_COMPONENT_H_
 
 #include <memory>
+#include <memory>
+#include <iostream>
 
+#include "command.h"
+#include "logger.h"
+#include "world.h"
 #include "component.h"
+#include "internal_types.h"
+
+#include "../third_party/bullet3/src/btBulletDynamicsCommon.h"
+#include "../third_party/bullet3/src/Bullet3Serialize/Bullet2FileLoader/b3BulletFile.h"
 
 namespace spectre {
 
@@ -30,8 +39,11 @@ class TransformComponent : public Component {
  public:
   void Start();
   void Update(float delta_time);
-  bool ExecuteCommand(std::shared_ptr<BaseCommand> command);
-  ComponentID component_id_ = ComponentID::kPhysics;
+  bool ExecuteCommand(std::shared_ptr<BaseCommand> command, std::shared_ptr<Object> caller);
+  void Start();
+  ComponentID component_id_ = ComponentID::kTransform;
+  Vector3 pos = Vector3();
+  Quaternion rot = Quaternion();
 };
 
 } // namespace spectre

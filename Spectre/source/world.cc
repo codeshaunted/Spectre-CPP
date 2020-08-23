@@ -22,7 +22,6 @@
 #include <thread>
 #include <algorithm>
 
-#include "transform_component.h"
 
 namespace spectre {
 

@@ -36,14 +36,14 @@ class Object {
 
   void Update(float delta_time);
 
-  ObjectID GetID() { return id_; }
+  ObjectID GetID() const { return id_; }
   void SetID(ObjectID id) { id_ = id; }
 
   template <class T> 
   void AddComponent(std::shared_ptr<T> component);
 
-  bool ExecuteCommand(std::shared_ptr<BaseCommand> command);
-  bool ExecuteCommandOnComponents(std::shared_ptr<BaseCommand> command);
+  bool ExecuteCommand(const std::shared_ptr<BaseCommand>& command);
+  bool ExecuteCommandOnComponents(const std::shared_ptr<BaseCommand>& command);
 
  private:
   ObjectID id_;
