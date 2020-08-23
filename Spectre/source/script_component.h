@@ -1,4 +1,4 @@
-// component.h
+// script_component.h
 // Copyright (C) 2020 Spectre Team
 //
 // This program is free software; you can redistribute it and/or
@@ -15,29 +15,20 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#ifndef COMPONENT_H_
-#define COMPONENT_H_
+#ifndef SCRIPT_COMPONENT_H_
+#define SCRIPT_COMPONENT_H_
 
-#include <memory>
+#include "component.h"
 
 namespace spectre {
 
-class BaseCommand;
+class Command;
 
-enum class ComponentID : uint16_t {
-  kNullComponent,
-  kPhysics,
-  kScript
-};
-
-class Component {
+class ScriptComponent : public Component {
  public:
-  virtual void Start();
-  virtual void Update(float delta_time);
-  virtual bool ExecuteCommand(std::shared_ptr<BaseCommand> command) { return false; }
-  ComponentID component_id_ = ComponentID::kNullComponent;
+  ComponentID component_id_ = ComponentID::kScript;
 };
 
-} // namespace spectre
+} //namespace spectre
 
-#endif // COMPONENT_H_
+#endif //SCRIPT_COMPONENT_H_

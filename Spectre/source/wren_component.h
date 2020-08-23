@@ -1,4 +1,4 @@
-// component.h
+// wren_component.h
 // Copyright (C) 2020 Spectre Team
 //
 // This program is free software; you can redistribute it and/or
@@ -15,29 +15,33 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#ifndef COMPONENT_H_
-#define COMPONENT_H_
+#ifndef WREN_COMPONENT_H_
+#define WREN_COMPONENT_H_
 
-#include <memory>
+#include "script_component.h"
+#include <string>
+
+#include "wren.hpp"
 
 namespace spectre {
 
-class BaseCommand;
-
-enum class ComponentID : uint16_t {
-  kNullComponent,
-  kPhysics,
-  kScript
-};
-
-class Component {
+class WrenComponent : public ScriptComponent {
  public:
-  virtual void Start();
-  virtual void Update(float delta_time);
-  virtual bool ExecuteCommand(std::shared_ptr<BaseCommand> command) { return false; }
-  ComponentID component_id_ = ComponentID::kNullComponent;
+  void Update(float delta_time);
+  void Start();
+  WrenComponent(std::string script_name);
+  ~WrenComponent();
+ private:
+  void SetupCallbacks();
+  void CleanupHandles();
+  std::string script_name_;
+  WrenVM *vm_;
+  WrenConfiguration config_;
+  int ensured_slots_ = 0;
 };
 
-} // namespace spectre
+}
 
-#endif // COMPONENT_H_
+
+
+#endif // WREN_COMPONENT_H_

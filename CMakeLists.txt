@@ -17,6 +17,8 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/output)
 include_directories(Spectre/source)
 add_subdirectory(Spectre/third_party)
 
+include_directories(Spectre/third_party/wren/src/include)
+
 add_executable(Spectre Spectre/source/main.cc
         Spectre/source/command.cc
         Spectre/source/command.h
@@ -32,6 +34,8 @@ add_executable(Spectre Spectre/source/main.cc
         Spectre/source/transform_component.h
         Spectre/source/world.h
         Spectre/source/world.cc
+        Spectre/source/wren_component.cc
+        Spectre/source/wren_bindings.cc
         )
 set_target_properties(Spectre PROPERTIES LINKER_LANGUAGE CXX)
 

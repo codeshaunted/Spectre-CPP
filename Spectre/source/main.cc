@@ -85,8 +85,22 @@ int main(int argc, char** argv) {
 
   spectre::World::Instance().GetLogger().Log(spectre::Logger::Level::kInfo, test);*/
 
-  // epic comment
 
+
+  /*Wren example:
+  test_import.wren:
+    import "other_script"
+    system.print("Hello world from test_import.wren!")
+  other_script.wren:
+    system.print("Hello world from other_script.wren!")
+  
+  std::shared_ptr<spectre::Object> obj = std::make_shared<spectre::Object> (spectre::Object());
+  obj->AddComponent<spectre::WrenComponent>(
+    std::make_shared<spectre::WrenComponent>(spectre::WrenComponent("test_import"))
+  );
+  spectre::World::Instance().GetObjectManager().addOjbect(obj);
+  */
+ 
   spectre::World::Instance().WorldLoop();
 
   return EXIT_SUCCESS;
