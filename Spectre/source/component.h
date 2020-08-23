@@ -42,3 +42,4 @@ class Component {
 } // namespace spectre
 
 #endif // COMPONENT_H_
+

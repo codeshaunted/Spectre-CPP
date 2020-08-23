@@ -25,17 +25,18 @@ namespace spectre {
 
 class Logger {
  public:
-  enum class Level {
-    kDebug,
-    kInfo,
-    kWarning,
-    kError,
+  enum class LogLevel {
+    kDebug,   //for debugging.
+    kInfo,    //general info; used to make it clear what spectre is doing
+    kWarning, //warnings
+    kError,   //errors
+    kScript,  //used to differentiate script output
   };
 
   Logger();
   ~Logger();
-
-  void Log(Level level, const std::string& message);
+  
+  void Log(LogLevel level, std::string message);
 
  private:
   std::fstream file_stream_;
