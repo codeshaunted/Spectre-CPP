@@ -42,7 +42,7 @@ add_executable(Spectre Spectre/source/main.cc
         Spectre/source/internal_types.cc
         Spectre/source/internal_types.h
         Spectre/source/physics_component.cc
-        Spectre/source/physics_component.h)
+        Spectre/source/physics_component.h
         Spectre/source/wren_component.cc
         Spectre/source/wren_bindings.cc
         )

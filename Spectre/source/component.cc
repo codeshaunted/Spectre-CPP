@@ -19,8 +19,6 @@
 
 namespace spectre {
 
-  void Component::Start() {}
-
   void Component::Update(float delta_time) {}
 
 } // namespace spectre
