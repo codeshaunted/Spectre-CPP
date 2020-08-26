@@ -1,6 +1,6 @@
 # Bullet Code
 set(BUILD_PYBULLET FALSE)
-set(BUILD_EXTRAS TRUE)
+set(BUILD_EXTRAS FALSE)
 
 if (LINUX)
     if (EXISTS /usr/lib/x86_64-linux-gnu/libGL.so OR /usr/lib/x86_64-linux-gnu/libGLX.so OR /usr/lib/x86_64-linux-gnu/libOpenGL.so)

@@ -40,7 +40,6 @@ class TransformComponent : public Component {
   void Start();
   void Update(float delta_time);
   bool ExecuteCommand(std::shared_ptr<BaseCommand> command, std::shared_ptr<Object> caller);
-  void Start();
   ComponentID component_id_ = ComponentID::kTransform;
   Vector3 pos = Vector3();
   Quaternion rot = Quaternion();

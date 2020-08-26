@@ -28,7 +28,8 @@ class BaseCommand;
 enum class ComponentID : uint16_t {
   kNullComponent,
   kPhysics,
-  kTransform
+  kTransform,
+  kScript
 };
 
 class Component {
