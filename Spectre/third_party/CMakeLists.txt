@@ -1,6 +1,9 @@
 # Bullet Code
-set(BUILD_PYBULLET FALSE)
-set(BUILD_EXTRAS FALSE)
+set(BUILD_EXTRAS OFF)
+set(BUILD_CPU_DEMOS OFF)
+set(BUILD_OPENGL3_DEMOS OFF)
+set(BUILD_BULLET2_DEMOS OFF)
+set(BUILD_UNIT_TESTS OFF)
 
 if (LINUX)
     if (EXISTS /usr/lib/x86_64-linux-gnu/libGL.so OR /usr/lib/x86_64-linux-gnu/libGLX.so OR /usr/lib/x86_64-linux-gnu/libOpenGL.so)

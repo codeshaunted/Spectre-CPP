@@ -7,3 +7,6 @@
 [submodule "Spectre/third_party/bullet3"]
 	path = Spectre/third_party/bullet3
 	url = https://github.com/bulletphysics/bullet3
+[submodule "Spectre/third_party/nlohmann_json"]
+	path = Spectre/third_party/nlohmann_json
+	url = https://github.com/nlohmann/json
