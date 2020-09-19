@@ -36,10 +36,10 @@ void TestPubSub::Update(float delta_time) {
       }
     )"_json);
     data = awakeTopic_->GetValue();
-    World::Instance().GetLogger().Log(Logger::LogLevel::kDebug, "data after set: \n" + data.dump());
+    World::Instance().GetLogger().Log(Logger::LogLevel::kDebug, "data after first set: \n" + data.dump());
   } else if (framecount == 3) {
     auto data = awakeTopic_->GetValue();
-    World::Instance().GetLogger().Log(Logger::LogLevel::kDebug, "data next frame: \n" + data.dump());
+    World::Instance().GetLogger().Log(Logger::LogLevel::kDebug, "data frame 3 pre set: \n" + data.dump());
     awakeTopic_->SetValue(R"(
       {
         "a": false
@@ -52,7 +52,19 @@ void TestPubSub::Update(float delta_time) {
     )"_json);
   } else if (framecount == 4) {
     auto data = awakeTopic_->GetValue();
-    World::Instance().GetLogger().Log(Logger::LogLevel::kDebug, "data next frame: \n" + data.dump());
+    World::Instance().GetLogger().Log(Logger::LogLevel::kDebug, "data frame 4: \n" + data.dump());
+  } else if (framecount == 5) {
+    World::Instance().GetLogger().Log(Logger::LogLevel::kDebug, "was set (fr5): " + std::to_string(awakeTopic_->WasSet()));
+    awakeTopic_->SetValue(R"(
+      {
+        "b": "nice"
+      }
+    )"_json);
+    auto data = awakeTopic_->GetValue();
+    World::Instance().GetLogger().Log(Logger::LogLevel::kDebug, "data frame 5: \n" + data.dump());
+  } else if (framecount == 6) {
+    auto data = awakeTopic_->GetValue();
+    World::Instance().GetLogger().Log(Logger::LogLevel::kDebug, "data frame 6: \n" + data.dump());
   }
 }
 

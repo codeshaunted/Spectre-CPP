@@ -39,7 +39,6 @@ void Topic::SetValue(json value) {
   // release?
   for (auto& [key, templateValue] : messageTemplate_.items()) {
     // Cannot change topic type after creating it!
-    // assert(value.find(key) != value.end());
     if(value.find(key) == value.end()) {
       World::Instance().GetLogger().Log(Logger::LogLevel::kError, 
                             "topic type mismatch!");
@@ -62,7 +61,8 @@ void Topic::SetValue(json value) {
 }
 
 void Topic::SwapBuffers() {
-  if(!shouldUpdateValue_ || !wasSetThisFrame_)
+  wasSetThisFrame_ = false;
+  if(!shouldUpdateValue_)
     return;
   
   readFromValueA_ = !readFromValueA_;
