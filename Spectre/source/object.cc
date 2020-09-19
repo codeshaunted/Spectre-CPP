@@ -29,6 +29,14 @@ Object::Object() {
 
 Object::~Object() = default;
 
+void Object::Awake() {
+  for (const auto& component : components_) {
+    //World::Instance().update_queue_.push_back(component.second);
+    // TODO: Add option for non-multithreaded (GameVariables)
+    component.second->Awake();
+  }
+}
+
 void Object::Update(float delta_time) {
   for (const auto& component : components_) {
     //World::Instance().update_queue_.push_back(component.second);

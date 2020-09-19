@@ -27,6 +27,12 @@ ObjectManager::ObjectManager()
   next_id_ = 0;
 }
 
+void ObjectManager::Start() {
+  for (auto object : objects_) {
+    object.second->Awake();
+  }
+}
+
 void ObjectManager::Update(float delta_time) {
   for (auto object : objects_) {
     object.second->Update(delta_time);

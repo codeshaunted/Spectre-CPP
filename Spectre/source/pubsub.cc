@@ -18,6 +18,9 @@
 #include "pubsub.h"
 #include "world.h"
 
+// #include <stdexcept> // included by json.hpp
+#include <set>
+
 namespace spectre {
 
 void Topic::SetValue(json value) {
@@ -29,12 +32,22 @@ void Topic::SetValue(json value) {
     return;
   }
 
+  
+
   // This seems slow. Not sure how to speed it up though. Maybe make a 
   // SetValueUnsafe function as well? Do something else when building for 
   // release?
-  for (auto& [key, value] : messageTemplate_.items()) {
+  for (auto& [key, templateValue] : messageTemplate_.items()) {
     // Cannot change topic type after creating it!
-    assert(value.find(key) != value.end());
+    // assert(value.find(key) != value.end());
+    if(value.find(key) == value.end()) {
+      World::Instance().GetLogger().Log(Logger::LogLevel::kError, 
+                            "topic type mismatch!");
+      World::Instance().GetLogger().Log(Logger::LogLevel::kError, 
+                            "given value:\n" + value.dump());
+      World::Instance().GetLogger().Log(Logger::LogLevel::kError, 
+                            "template:\n" + messageTemplate_.dump());
+    }
   }
 
   // Modify the value that is not in use
@@ -49,7 +62,7 @@ void Topic::SetValue(json value) {
 }
 
 void Topic::SwapBuffers() {
-  if(!shouldUpdateValue_)
+  if(!shouldUpdateValue_ || !wasSetThisFrame_)
     return;
   
   readFromValueA_ = !readFromValueA_;
@@ -58,6 +71,44 @@ void Topic::SwapBuffers() {
   for (auto callback : callbackList_) {
     callback(GetValue());
   }
+
+  shouldUpdateValue_ = false;
+  wasSetThisFrame_ = false;
+}
+
+std::shared_ptr<Topic> PubSub::initTopic(std::string path, json messageTemplate) {
+  auto ptr = std::make_shared<Topic>(path, messageTemplate);
+  topicMap_[path] = ptr;
+  return ptr;
+}
+
+std::shared_ptr<Topic> PubSub::GetTopic(std::string path) {
+  auto found = topicMap_.find(path);
+  if(found == topicMap_.end()) {
+    throw std::invalid_argument("no topic " + path + " exists!");
+  } else {
+    return found->second;
+  }
+}
+
+void PubSub::Update() {
+  for (auto element : topicMap_) {
+    element.second->SwapBuffers();
+  }
+}
+
+void PubSub::DumpTopicTreeToLog() {
+  World::Instance().GetLogger().Log(Logger::LogLevel::kDebug, "dump topics called");
+
+  std::set<std::string> toPrint;
+  for (auto pair : topicMap_) {
+    toPrint.insert(pair.first);
+  }
+  std::string toPrint_s = std::string("All current topics:");
+  for(std::string path : toPrint) {
+    toPrint_s += "\n"+path;
+  }
+  World::Instance().GetLogger().Log(Logger::LogLevel::kInfo, toPrint_s);
 }
 
 }

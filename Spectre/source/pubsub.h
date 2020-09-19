@@ -15,22 +15,44 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-#ifndef PUBSUB_H
-#define PUBSUB_H
+#ifndef PUBSUB_H_
+#define PUBSUB_H_
 
 #include <nlohmann/json.hpp>
 
 // #include <string> // This is used but json.hpp already includes it
-// #include <vector
+// #include <vector> // ditto
+// #include <unordered_map> // ditto
+// #include <memory> //ditto
 
 using json = nlohmann::json;
 
 namespace spectre {
 
+class Topic;
+
 class PubSub {
+ public:
+  PubSub() : topicMap_() {}
 
+  void Update();
 
+  // Initialize a topic and return a shared_ptr to it. This pointer can be cached
+  // or GetTopic(path) can be called to get the pointer later.
+  std::shared_ptr<Topic> initTopic(std::string path, json messageTemplate);
+
+  // Get a shared_ptr to a topic given its path. The returned shared_ptr can be
+  // cached for faster access.
+  std::shared_ptr<Topic> GetTopic(std::string path);
+
+  // Print out all topics
+  void DumpTopicTreeToLog();
+
+ private:
+  // Map storing topics, indexed by a string path.
+  std::unordered_map<std::string, std::shared_ptr<Topic>> topicMap_;
 };
+
 class Topic {
  public:
   // Takes the path of this topic (technically optional but helpful for error
@@ -66,7 +88,7 @@ class Topic {
   void SwapBuffers();
 
   // Test if this topic was already set this frame.
-  bool WasSet() { return shouldUpdateValue_; }
+  bool WasSet() const { return wasSetThisFrame_; }
 
   // Adds a lambda to run with the latest value when this topic is updated
   void AddCallback(std::function<void(json)> newCallback) {
@@ -95,4 +117,4 @@ class Topic {
 
 }
 
-#endif // PUBSUB_H
+#endif // PUBSUB_H_

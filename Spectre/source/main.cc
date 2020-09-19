@@ -22,6 +22,7 @@
 #include "transform_component.h"
 #include "logger.h"
 #include "game_variables.h"
+#include "test_pub_sub.h"
 
 #ifdef _WIN32
 #include <windows.h>
@@ -97,6 +98,14 @@ int main(int argc, char** argv) {
   );
   spectre::World::Instance().GetObjectManager().addOjbect(obj);
   */
+
+  //test pub/sub
+  std::shared_ptr<spectre::Object> obj = std::make_shared<spectre::Object>();
+  obj->AddComponent<spectre::TestPubSub>(
+    std::make_shared<spectre::TestPubSub>()
+  );
+
+  spectre::World::Instance().GetObjectManager().AddObject(obj);
   
   spectre::World::Instance().WorldLoop();
 
