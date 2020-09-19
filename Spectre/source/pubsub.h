@@ -58,7 +58,7 @@ class Topic {
   // Takes the path of this topic (technically optional but helpful for error
   // messages) and a template for the value to compare new values to.
   Topic(std::string path, json topicTemplate) : messageTemplate_(topicTemplate),
-  path_(path) {}
+  valueB_(topicTemplate), valueA_(topicTemplate), path_(path) {}
 
   // Get a copy of the current value
   json GetValue() const {

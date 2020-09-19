@@ -98,8 +98,6 @@ void PubSub::Update() {
 }
 
 void PubSub::DumpTopicTreeToLog() {
-  World::Instance().GetLogger().Log(Logger::LogLevel::kDebug, "dump topics called");
-
   std::set<std::string> toPrint;
   for (auto pair : topicMap_) {
     toPrint.insert(pair.first);

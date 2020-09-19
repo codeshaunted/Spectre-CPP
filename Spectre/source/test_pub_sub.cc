@@ -6,8 +6,6 @@
 namespace spectre {
 
 void TestPubSub::Awake() {
-    World::Instance().GetLogger().Log(Logger::LogLevel::kDebug, "awake called");
-
   awakeTopic_ = World::Instance().GetPubSub().initTopic("test/awake", R"(
     {
       "a": true
@@ -25,9 +23,36 @@ void TestPubSub::Update(float delta_time) {
     World::Instance().GetPubSub().DumpTopicTreeToLog();
     awakeTopic_->SetValue(R"(
       {
+        "a": false
+      }
+    )"_json);
+  } else if (framecount == 2) {
+    auto data = awakeTopic_->GetValue();
+    World::Instance().GetLogger().Log(Logger::LogLevel::kDebug, "got data: \n" + data.dump());
+    World::Instance().GetPubSub().DumpTopicTreeToLog();
+    awakeTopic_->SetValue(R"(
+      {
         "a": true
       }
     )"_json);
+    data = awakeTopic_->GetValue();
+    World::Instance().GetLogger().Log(Logger::LogLevel::kDebug, "data after set: \n" + data.dump());
+  } else if (framecount == 3) {
+    auto data = awakeTopic_->GetValue();
+    World::Instance().GetLogger().Log(Logger::LogLevel::kDebug, "data next frame: \n" + data.dump());
+    awakeTopic_->SetValue(R"(
+      {
+        "a": false
+      }
+    )"_json);
+    awakeTopic_->SetValue(R"(
+      {
+        "a": false
+      }
+    )"_json);
+  } else if (framecount == 4) {
+    auto data = awakeTopic_->GetValue();
+    World::Instance().GetLogger().Log(Logger::LogLevel::kDebug, "data next frame: \n" + data.dump());
   }
 }
 
