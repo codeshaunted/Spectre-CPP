@@ -48,7 +48,6 @@ add_executable(Spectre Spectre/source/main.cc
         Spectre/source/wren_component.cc
         Spectre/source/wren_bindings.cc
         Spectre/source/pubsub.cc
-        Spectre/source/test_pub_sub.cc
         )
 
 set_target_properties(Spectre PROPERTIES LINKER_LANGUAGE CXX)
