@@ -16,3 +16,48 @@
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include "pubsub.h"
+#include "world.h"
+
+namespace spectre {
+
+void Topic::SetValue(json value) {
+  // Make sure it wasn't already set to avoid race condition.
+  if(wasSetThisFrame_) {
+    World::Instance().GetLogger().Log(Logger::LogLevel::kError, 
+                            "topic " + path_ + " was already set this frame!");
+    shouldUpdateValue_ = false; // do not update because of unreliable value
+    return;
+  }
+
+  // This seems slow. Not sure how to speed it up though. Maybe make a 
+  // SetValueUnsafe function as well? Do something else when building for 
+  // release?
+  for (auto& [key, value] : messageTemplate_.items()) {
+    // Cannot change topic type after creating it!
+    assert(value.find(key) != value.end());
+  }
+
+  // Modify the value that is not in use
+  if (readFromValueA_) {
+    valueB_ = value;
+  } else {
+    valueA_ = value;
+  }
+
+  wasSetThisFrame_ = true;
+  shouldUpdateValue_ = true;
+}
+
+void Topic::SwapBuffers() {
+  if(!shouldUpdateValue_)
+    return;
+  
+  readFromValueA_ = !readFromValueA_;
+
+  // Run callbacks
+  for (auto callback : callbackList_) {
+    callback(GetValue());
+  }
+}
+
+}
