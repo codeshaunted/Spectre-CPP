@@ -34,6 +34,9 @@ enum class ComponentID : uint16_t {
 
 class Component {
  public:
+  // Called once on start
+  virtual void Awake();
+  // Called every frame
   virtual void Update(float delta_time);
   virtual bool ExecuteCommand(std::shared_ptr<BaseCommand> command, std::shared_ptr<spectre::Object> caller) { return false; }
   ComponentID component_id_ = ComponentID::kNullComponent;

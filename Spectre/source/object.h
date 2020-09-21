@@ -34,6 +34,7 @@ class Object {
   Object();
   ~Object();
 
+  void Awake();
   void Update(float delta_time);
 
   ObjectID GetID() const { return id_; }

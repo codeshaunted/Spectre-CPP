@@ -15,6 +15,9 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+#ifndef WORLD_H_
+#define WORLD_H_
+
 #include <memory>
 #include <vector>
 #include <stack>
@@ -22,6 +25,7 @@
 #include "object_manager.h"
 #include "logger.h"
 #include "game_variables.h"
+#include "pubsub.h"
 
 namespace spectre {
 
@@ -52,12 +56,23 @@ class World {
     return *game_variables_;
   }
 
+  PubSub& GetPubSub() {
+    if (pub_sub_ == NULL) pub_sub_ = std::make_shared<PubSub>();
+    return *pub_sub_;
+  }
+
+  int GetFrameCount() {return framecount;}
+
  private:
   std::shared_ptr<ObjectManager> object_manager_;
   std::shared_ptr<Logger> logger_;
   std::shared_ptr<GameVariables> game_variables_;
+  std::shared_ptr<PubSub> pub_sub_;
   std::vector<std::stack<std::shared_ptr<Component>>> component_stacks_;
   float current_delta_time_ = 0.0f;
+  int framecount = 0;
 };
 
 } // namespace spectre
+
+#endif

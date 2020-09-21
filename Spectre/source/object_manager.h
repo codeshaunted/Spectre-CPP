@@ -31,6 +31,8 @@ class ObjectManager {
  public:
   ObjectManager();
 
+  //call awake on everything
+  void Start();
   void Update(float delta_time);
   void AddObject(std::shared_ptr<Object> object);
   void RemoveObject(ObjectID id);

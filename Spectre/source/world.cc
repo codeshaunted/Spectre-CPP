@@ -44,6 +44,8 @@ void World::WorldLoop() {
 		thread.detach();
 	}*/
 
+  GetObjectManager().Start();
+
 	while (true) {
 		const auto current_time = std::chrono::high_resolution_clock::now();
 		current_delta_time_ = std::chrono::duration<float>(current_time - last_time).count();
@@ -51,6 +53,8 @@ void World::WorldLoop() {
 
 		// TODO: make multi-threading optional
 		GetObjectManager().Update(current_delta_time_);
+
+		GetPubSub().Update();
 
 	//	// TODO: make a smarter load-balancer
 	//	int processor_iterator = 0;
@@ -65,6 +69,8 @@ void World::WorldLoop() {
 	//	for (std::stack<std::shared_ptr<Component>> component_stack : component_stacks_) {
 	//		while (!component_stack.empty()); // wait for threads to finish to continue
 	//	}
+
+		framecount++;
 	}
 }
 
