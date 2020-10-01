@@ -25,14 +25,12 @@ namespace spectre {
 
 void Topic::SetValue(json value) {
   // Make sure it wasn't already set to avoid race condition.
-  if(wasSetThisFrame_) {
+  if(wasSetThisFrame_ && oneSetPerFrame) {
     World::Instance().GetLogger().Log(Logger::LogLevel::kError, 
                             "topic " + path_ + " was already set this frame!");
     shouldUpdateValue_ = false; // do not update because of unreliable value
     return;
   }
-
-  
 
   // This seems slow. Not sure how to speed it up though. Maybe make a 
   // SetValueUnsafe function as well? Do something else when building for 
@@ -51,9 +49,9 @@ void Topic::SetValue(json value) {
 
   // Modify the value that is not in use
   if (readFromValueA_) {
-    valueB_ = value;
+    valueB_.push_back(value);
   } else {
-    valueA_ = value;
+    valueA_.push_back(value);
   }
 
   wasSetThisFrame_ = true;
@@ -65,6 +63,7 @@ void Topic::SwapBuffers() {
   if(!shouldUpdateValue_)
     return;
   
+  // "Swap buffers"
   readFromValueA_ = !readFromValueA_;
 
   // Run callbacks
@@ -75,6 +74,7 @@ void Topic::SwapBuffers() {
   shouldUpdateValue_ = false;
   wasSetThisFrame_ = false;
 }
+
 
 std::shared_ptr<Topic> PubSub::initTopic(std::string path, json messageTemplate) {
   auto ptr = std::make_shared<Topic>(path, messageTemplate);

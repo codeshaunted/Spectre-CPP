@@ -29,36 +29,14 @@ using json = nlohmann::json;
 
 namespace spectre {
 
-class Topic;
-
-class PubSub {
- public:
-  PubSub() : topicMap_() {}
-
-  void Update();
-
-  // Initialize a topic and return a shared_ptr to it. This pointer can be cached
-  // or GetTopic(path) can be called to get the pointer later.
-  std::shared_ptr<Topic> initTopic(std::string path, json messageTemplate);
-
-  // Get a shared_ptr to a topic given its path. The returned shared_ptr can be
-  // cached for faster access.
-  std::shared_ptr<Topic> GetTopic(std::string path);
-
-  // Print out all topics
-  void DumpTopicTreeToLog();
-
- private:
-  // Map storing topics, indexed by a string path.
-  std::unordered_map<std::string, std::shared_ptr<Topic>> topicMap_;
-};
-
 class Topic {
  public:
   // Takes the path of this topic (technically optional but helpful for error
   // messages) and a template for the value to compare new values to.
-  Topic(std::string path, json topicTemplate) : messageTemplate_(topicTemplate),
-  valueB_(topicTemplate), valueA_(topicTemplate), path_(path) {}
+  Topic(std::string path, json topicTemplate) : Topic(path, topicTemplate, true) {}
+
+  Topic(std::string path, json topicTemplate, bool onlyOneSetPerFrame)  : messageTemplate_(topicTemplate),
+  valueB_(), valueA_(), oneSetPerFrame(onlyOneSetPerFrame), path_(path) {}
 
   // Get a copy of the current value
   json GetValue() const {
@@ -96,9 +74,11 @@ class Topic {
   }
 
  private:
+  // If this is false, allow usage of the rest of the vector.
+  bool oneSetPerFrame;
   // Two values so that this can be double-buffered
-  json valueA_;
-  json valueB_;
+  std::vector<json> valueA_;
+  std::vector<json> valueB_;
   // To keep track of which one can be changed
   bool readFromValueA_;
 
@@ -113,6 +93,28 @@ class Topic {
   const std::string path_;
 
   std::vector<std::function<void(json)>> callbackList_;
+};
+
+class PubSub {
+ public:
+  PubSub() : topicMap_() {}
+
+  void Update();
+
+  // Initialize a topic and return a shared_ptr to it. This pointer can be cached
+  // or GetTopic(path) can be called to get the pointer later.
+  std::shared_ptr<Topic> initTopic(std::string path, json messageTemplate);
+
+  // Get a shared_ptr to a topic given its path. The returned shared_ptr can be
+  // cached for faster access.
+  std::shared_ptr<Topic> GetTopic(std::string path);
+
+  // Print out all topics
+  void DumpTopicTreeToLog();
+
+ private:
+  // Map storing topics, indexed by a string path.
+  std::unordered_map<std::string, std::shared_ptr<Topic>> topicMap_;
 };
 
 }
