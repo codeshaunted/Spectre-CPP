@@ -22,7 +22,6 @@
 #include "transform_component.h"
 #include "logger.h"
 #include "game_variables.h"
-#include "test_pub_sub.h"
 
 #ifdef _WIN32
 #include <windows.h>
