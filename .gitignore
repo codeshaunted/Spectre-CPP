@@ -3,6 +3,7 @@ Debug/
 Build/
 .vs/
 .vscode/
+build/
 
 # IntelliJ Idea IDEs
 .idea/
