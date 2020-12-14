@@ -1,4 +1,4 @@
-![Lines of Code](https://tokei.rs/b1/github/averysumner/Spectre?category=code)
+![Lines of Code](https://tokei.rs/b1/github/averysumner/Spectre-CPP?category=code)
 
 # Spectre
 Spectre is a work in progress open source game engine written in C++.
