@@ -82,6 +82,15 @@ class Topic {
   // same into the next frame, e.g. the previous set will be invalidated.
   void SetValue(json value);
 
+  // This one allows multiple sets per frame, and as such is not as safe as 
+  // SetValue. This function is slightly faster however, and is useful if a 
+  // topic is expected to only ever be set from one place and having the latest
+  // value is important, for example this is used by the input system.
+  //
+  // NOTE: this also won't use the double-buffer system, and may change the value
+  // while it is being read or something.
+  void SetValueUnsafe(json value);
+
   // This needs to be called exactly once between frames. This facilitates double
   // bufferring, which is necessary to allow setting the value while other things
   // are reading it and not inducing a race condition.

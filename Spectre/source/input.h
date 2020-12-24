@@ -19,20 +19,38 @@
 #define INPUT_H_
 
 #include <vector>
+#include <memory>
+#include <map>
 
 #include "glfw3.h"
 
+#include "pubsub.h"
+
 namespace spectre {
 
-class input {
+class Input {
 public: 
   void GLFWKeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
-  void Initialize();
+  Input();
+  void Update();
+  //wrappers for pubsub stuff for ease of use
+  bool IsKeyPressed(int key); // take a glfw key code
+  bool IsKeyPressed(const char* keyname); // take a name (doesn't have the input/whatever)
+  bool IsKeyJustChanged(int key);
+  bool IsKeyJustChanged(const char* keyname);
  private:
-  static char* GLFWKeyToTopicName(int key);
-
-  bool initialized = false;
-  std::vector<int> to_remove_just_changed;
+  static constexpr const char* GLFWKeyToTopicName(int key);
+  std::unique_ptr<std::map<const char*, std::shared_ptr<Topic>>> key_map_;
+  std::unique_ptr<std::vector<const char*>> to_remove_just_changed_;
+  const json default_key_topic_data_ = R"(
+    {
+      "pressed": false,
+      "just_changed": false
+    }
+  )"_json;
+  //helper functions to set up all the billion topics
+  void InitTopic(int keycode);
+  void InitTopicRange(int start_key, int end_key);
 };
 
 }
