@@ -37,13 +37,14 @@ bool Input::IsKeyPressed(int key) {
   return value["pressed"];
 }
 
-bool Input::IsKeyPressed(const char* keyname) {
-  std::string name_str = std::string("input/keyboard/") + std::string(keyname);
-  json value = key_map_->find(name_str.c_str())
-                       ->second
-                       ->GetValue();
-  return value["pressed"];
-}
+// This doesn't actually work! all this shit probably needs rewriting!
+// bool Input::IsKeyPressed(const char* keyname) {
+//   std::string name_str = std::string("input/keyboard/") + std::string(keyname);
+//   json value = key_map_->find(name_str.c_str())
+//                        ->second
+//                        ->GetValue();
+//   return value["pressed"];
+// }
 
 bool Input::IsKeyJustChanged(int key) {
   json value = key_map_->find(GLFWKeyToTopicName(key))
@@ -52,13 +53,14 @@ bool Input::IsKeyJustChanged(int key) {
   return value["just_changed"];
 }
 
-bool Input::IsKeyJustChanged(const char* keyname) {
-  std::string name_str = std::string("input/keyboard/") + std::string(keyname);
-  json value = key_map_->find(name_str.c_str())
-                       ->second
-                       ->GetValue();
-  return value["just_changed"];
-}
+// This doesn't actually work! all this shit probably needs rewriting!
+// bool Input::IsKeyJustChanged(const char* keyname) {
+//   std::string name_str = std::string("input/keyboard/") + std::string(keyname);
+//   json value = key_map_->find(name_str.c_str())
+//                        ->second
+//                        ->GetValue();
+//   return value["just_changed"];
+// }
 
 void Input::Update() {
   for (const char* keyname : *to_remove_just_changed_) {
