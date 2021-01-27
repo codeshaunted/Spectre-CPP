@@ -57,7 +57,7 @@ set_target_properties(Spectre PROPERTIES LINKER_LANGUAGE CXX)
 
 target_link_libraries(Spectre
         wren_lib
-        glfw
+        # glfw
         Bullet3Collision
         BulletDynamics
         BulletCollision
@@ -66,4 +66,5 @@ target_link_libraries(Spectre
         Bullet3Geometry
         Bullet3Common
         Bullet3Dynamics
+        raylib
         )
