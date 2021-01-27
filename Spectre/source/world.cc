@@ -22,6 +22,7 @@
 #include <thread>
 #include <algorithm>
 
+#include "raylib.h"
 
 namespace spectre {
 
@@ -46,7 +47,11 @@ void World::WorldLoop() {
 
   GetObjectManager().Start();
 
-	while (true) {
+	//raylib initialiation
+  InitWindow(640, 480, "temp window");
+  SetTargetFPS(144);
+
+	while (!WindowShouldClose()) {
 		const auto current_time = std::chrono::high_resolution_clock::now();
 		current_delta_time_ = std::chrono::duration<float>(current_time - last_time).count();
 		last_time = current_time;
@@ -69,9 +74,18 @@ void World::WorldLoop() {
 	//	for (std::stack<std::shared_ptr<Component>> component_stack : component_stacks_) {
 	//		while (!component_stack.empty()); // wait for threads to finish to continue
 	//	}
+    BeginDrawing();
+
+      ClearBackground(BLACK); // VSCode doesn't like this but its fine :P
+
+    EndDrawing();
+
 
 		framecount++;
 	}
+
+  //raylib deinitialization
+	CloseWindow();
 }
 
 void World::UpdateThread(int component_stack) {
