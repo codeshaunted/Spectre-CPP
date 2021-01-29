@@ -26,6 +26,8 @@ include_directories(Spectre/third_party/wren/src/include)
 
 include_directories(Spectre/third_party/nlohmann_json/single_include)
 
+include_directories(Spectre/third_party/glfw/include/GLFW)
+
 add_executable(Spectre Spectre/source/main.cc
         Spectre/source/command.cc
         Spectre/source/command.h
@@ -48,13 +50,14 @@ add_executable(Spectre Spectre/source/main.cc
         Spectre/source/wren_component.cc
         Spectre/source/wren_bindings.cc
         Spectre/source/pubsub.cc
+        Spectre/source/input.cc
         )
 
 set_target_properties(Spectre PROPERTIES LINKER_LANGUAGE CXX)
 
 target_link_libraries(Spectre
         wren_lib
-        glfw
+        # glfw
         Bullet3Collision
         BulletDynamics
         BulletCollision
@@ -63,4 +66,5 @@ target_link_libraries(Spectre
         Bullet3Geometry
         Bullet3Common
         Bullet3Dynamics
+        raylib
         )

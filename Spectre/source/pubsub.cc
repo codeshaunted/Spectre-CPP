@@ -32,8 +32,6 @@ void Topic::SetValue(json value) {
     return;
   }
 
-  
-
   // This seems slow. Not sure how to speed it up though. Maybe make a 
   // SetValueUnsafe function as well? Do something else when building for 
   // release?
@@ -60,6 +58,18 @@ void Topic::SetValue(json value) {
   shouldUpdateValue_ = true;
 }
 
+void Topic::SetValueUnsafe(json value) {
+  // Modify the value that is in use
+  if (!readFromValueA_) {
+    valueB_ = value;
+  } else {
+    valueA_ = value;
+  }
+
+  // wasSetThisFrame_ = true;
+  // shouldUpdateValue_ = true;
+}
+
 void Topic::SwapBuffers() {
   wasSetThisFrame_ = false;
   if(!shouldUpdateValue_)
@@ -76,7 +86,7 @@ void Topic::SwapBuffers() {
   wasSetThisFrame_ = false;
 }
 
-std::shared_ptr<Topic> PubSub::initTopic(std::string path, json messageTemplate) {
+std::shared_ptr<Topic> PubSub::initTopic(std::string path, const json messageTemplate) {
   auto ptr = std::make_shared<Topic>(path, messageTemplate);
   topicMap_[path] = ptr;
   return ptr;

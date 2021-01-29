@@ -29,9 +29,9 @@ add_subdirectory(bullet3)
 message("-- Generated Bullet CMake files")
 
 # GLFW Code
-set(GLFW_BUILD_DOCS FALSE)
+# set(GLFW_BUILD_DOCS FALSE)
 
-add_subdirectory(glfw)
+# add_subdirectory(glfw)
 
 # Wren Code
 
@@ -65,3 +65,5 @@ add_library(wren_lib STATIC
 set_target_properties(wren_lib PROPERTIES LINKER_LANGUAGE C)
 
 message("-- Generated Wren CMake Files")
+
+add_subdirectory(raylib)
